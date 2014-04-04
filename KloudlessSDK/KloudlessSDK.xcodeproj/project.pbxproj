@@ -1,0 +1,668 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		DE54653618EF37D200069BC4 /* Framework */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = DE54653718EF37D200069BC4 /* Build configuration list for PBXAggregateTarget "Framework" */;
+			buildPhases = (
+				DE54653C18EF37FA00069BC4 /* ShellScript */,
+			);
+			dependencies = (
+				DE54655518EF3B1300069BC4 /* PBXTargetDependency */,
+				DE54653B18EF37EF00069BC4 /* PBXTargetDependency */,
+			);
+			name = Framework;
+			productName = Framework;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		DE54650618EF33BB00069BC4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE54650518EF33BB00069BC4 /* Foundation.framework */; };
+		DE54650B18EF33BC00069BC4 /* KloudlessSDK.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = DE54650A18EF33BC00069BC4 /* KloudlessSDK.h */; };
+		DE54651418EF33BC00069BC4 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE54651318EF33BC00069BC4 /* XCTest.framework */; };
+		DE54651518EF33BC00069BC4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE54650518EF33BB00069BC4 /* Foundation.framework */; };
+		DE54651718EF33BC00069BC4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE54651618EF33BC00069BC4 /* UIKit.framework */; };
+		DE54651A18EF33BC00069BC4 /* libKloudlessSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE54650218EF33BB00069BC4 /* libKloudlessSDK.a */; };
+		DE54652018EF33BC00069BC4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DE54651E18EF33BC00069BC4 /* InfoPlist.strings */; };
+		DE54652218EF33BC00069BC4 /* KloudlessSDKTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DE54652118EF33BC00069BC4 /* KloudlessSDKTests.m */; };
+		DE54652C18EF348700069BC4 /* KloudlessSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = DE54650A18EF33BC00069BC4 /* KloudlessSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DE54654318EF39BC00069BC4 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE54654218EF39BC00069BC4 /* CoreFoundation.framework */; };
+		DE54654918EF39BD00069BC4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DE54654718EF39BD00069BC4 /* InfoPlist.strings */; };
+		DE54656018EF525000069BC4 /* KClient.h in Headers */ = {isa = PBXBuildFile; fileRef = DE54655C18EF525000069BC4 /* KClient.h */; };
+		DE54656118EF525000069BC4 /* KClient.m in Sources */ = {isa = PBXBuildFile; fileRef = DE54655D18EF525000069BC4 /* KClient.m */; };
+		DE54656218EF525000069BC4 /* KRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = DE54655E18EF525000069BC4 /* KRequest.h */; };
+		DE54656318EF525000069BC4 /* KRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = DE54655F18EF525000069BC4 /* KRequest.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DE54651818EF33BC00069BC4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DE5464FA18EF33BB00069BC4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DE54650118EF33BB00069BC4;
+			remoteInfo = KloudlessSDK;
+		};
+		DE54653A18EF37EF00069BC4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DE5464FA18EF33BB00069BC4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DE54650118EF33BB00069BC4;
+			remoteInfo = KloudlessSDK;
+		};
+		DE54655418EF3B1300069BC4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DE5464FA18EF33BB00069BC4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DE54654018EF39BC00069BC4;
+			remoteInfo = KloudlessResources;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DE54650018EF33BB00069BC4 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+				DE54650B18EF33BC00069BC4 /* KloudlessSDK.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		DE54650218EF33BB00069BC4 /* libKloudlessSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libKloudlessSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		DE54650518EF33BB00069BC4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		DE54650918EF33BC00069BC4 /* KloudlessSDK-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KloudlessSDK-Prefix.pch"; sourceTree = "<group>"; };
+		DE54650A18EF33BC00069BC4 /* KloudlessSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KloudlessSDK.h; sourceTree = "<group>"; };
+		DE54651218EF33BC00069BC4 /* KloudlessSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KloudlessSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DE54651318EF33BC00069BC4 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		DE54651618EF33BC00069BC4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		DE54651D18EF33BC00069BC4 /* KloudlessSDKTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KloudlessSDKTests-Info.plist"; sourceTree = "<group>"; };
+		DE54651F18EF33BC00069BC4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DE54652118EF33BC00069BC4 /* KloudlessSDKTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KloudlessSDKTests.m; sourceTree = "<group>"; };
+		DE54654118EF39BC00069BC4 /* KloudlessSDK.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KloudlessSDK.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		DE54654218EF39BC00069BC4 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		DE54654618EF39BC00069BC4 /* KloudlessResources-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KloudlessResources-Info.plist"; sourceTree = "<group>"; };
+		DE54654818EF39BD00069BC4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DE54655C18EF525000069BC4 /* KClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KClient.h; sourceTree = "<group>"; };
+		DE54655D18EF525000069BC4 /* KClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KClient.m; sourceTree = "<group>"; };
+		DE54655E18EF525000069BC4 /* KRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KRequest.h; sourceTree = "<group>"; };
+		DE54655F18EF525000069BC4 /* KRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KRequest.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DE5464FF18EF33BB00069BC4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DE54650618EF33BB00069BC4 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DE54650F18EF33BC00069BC4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DE54651418EF33BC00069BC4 /* XCTest.framework in Frameworks */,
+				DE54651718EF33BC00069BC4 /* UIKit.framework in Frameworks */,
+				DE54651518EF33BC00069BC4 /* Foundation.framework in Frameworks */,
+				DE54651A18EF33BC00069BC4 /* libKloudlessSDK.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DE54653E18EF39BC00069BC4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DE54654318EF39BC00069BC4 /* CoreFoundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DE5464F918EF33BB00069BC4 = {
+			isa = PBXGroup;
+			children = (
+				DE54650718EF33BC00069BC4 /* KloudlessSDK */,
+				DE54651B18EF33BC00069BC4 /* KloudlessSDKTests */,
+				DE54654418EF39BC00069BC4 /* KloudlessResources */,
+				DE54650418EF33BB00069BC4 /* Frameworks */,
+				DE54650318EF33BB00069BC4 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DE54650318EF33BB00069BC4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DE54650218EF33BB00069BC4 /* libKloudlessSDK.a */,
+				DE54651218EF33BC00069BC4 /* KloudlessSDKTests.xctest */,
+				DE54654118EF39BC00069BC4 /* KloudlessSDK.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DE54650418EF33BB00069BC4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DE54650518EF33BB00069BC4 /* Foundation.framework */,
+				DE54651318EF33BC00069BC4 /* XCTest.framework */,
+				DE54651618EF33BC00069BC4 /* UIKit.framework */,
+				DE54654218EF39BC00069BC4 /* CoreFoundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DE54650718EF33BC00069BC4 /* KloudlessSDK */ = {
+			isa = PBXGroup;
+			children = (
+				DE54650A18EF33BC00069BC4 /* KloudlessSDK.h */,
+				DE54655C18EF525000069BC4 /* KClient.h */,
+				DE54655D18EF525000069BC4 /* KClient.m */,
+				DE54655E18EF525000069BC4 /* KRequest.h */,
+				DE54655F18EF525000069BC4 /* KRequest.m */,
+				DE54650818EF33BC00069BC4 /* Supporting Files */,
+			);
+			path = KloudlessSDK;
+			sourceTree = "<group>";
+		};
+		DE54650818EF33BC00069BC4 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DE54650918EF33BC00069BC4 /* KloudlessSDK-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DE54651B18EF33BC00069BC4 /* KloudlessSDKTests */ = {
+			isa = PBXGroup;
+			children = (
+				DE54652118EF33BC00069BC4 /* KloudlessSDKTests.m */,
+				DE54651C18EF33BC00069BC4 /* Supporting Files */,
+			);
+			path = KloudlessSDKTests;
+			sourceTree = "<group>";
+		};
+		DE54651C18EF33BC00069BC4 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DE54651D18EF33BC00069BC4 /* KloudlessSDKTests-Info.plist */,
+				DE54651E18EF33BC00069BC4 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DE54654418EF39BC00069BC4 /* KloudlessResources */ = {
+			isa = PBXGroup;
+			children = (
+				DE54654518EF39BC00069BC4 /* Supporting Files */,
+			);
+			path = KloudlessResources;
+			sourceTree = "<group>";
+		};
+		DE54654518EF39BC00069BC4 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DE54654618EF39BC00069BC4 /* KloudlessResources-Info.plist */,
+				DE54654718EF39BD00069BC4 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		DE54652B18EF346500069BC4 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DE54656218EF525000069BC4 /* KRequest.h in Headers */,
+				DE54652C18EF348700069BC4 /* KloudlessSDK.h in Headers */,
+				DE54656018EF525000069BC4 /* KClient.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		DE54650118EF33BB00069BC4 /* KloudlessSDK */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DE54652518EF33BC00069BC4 /* Build configuration list for PBXNativeTarget "KloudlessSDK" */;
+			buildPhases = (
+				DE5464FE18EF33BB00069BC4 /* Sources */,
+				DE5464FF18EF33BB00069BC4 /* Frameworks */,
+				DE54650018EF33BB00069BC4 /* CopyFiles */,
+				DE54652B18EF346500069BC4 /* Headers */,
+				DE54653518EF369C00069BC4 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KloudlessSDK;
+			productName = KloudlessSDK;
+			productReference = DE54650218EF33BB00069BC4 /* libKloudlessSDK.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		DE54651118EF33BC00069BC4 /* KloudlessSDKTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DE54652818EF33BC00069BC4 /* Build configuration list for PBXNativeTarget "KloudlessSDKTests" */;
+			buildPhases = (
+				DE54650E18EF33BC00069BC4 /* Sources */,
+				DE54650F18EF33BC00069BC4 /* Frameworks */,
+				DE54651018EF33BC00069BC4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DE54651918EF33BC00069BC4 /* PBXTargetDependency */,
+			);
+			name = KloudlessSDKTests;
+			productName = KloudlessSDKTests;
+			productReference = DE54651218EF33BC00069BC4 /* KloudlessSDKTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		DE54654018EF39BC00069BC4 /* KloudlessResources */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DE54654B18EF39BD00069BC4 /* Build configuration list for PBXNativeTarget "KloudlessResources" */;
+			buildPhases = (
+				DE54653D18EF39BC00069BC4 /* Sources */,
+				DE54653E18EF39BC00069BC4 /* Frameworks */,
+				DE54653F18EF39BC00069BC4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KloudlessResources;
+			productName = KloudlessResources;
+			productReference = DE54654118EF39BC00069BC4 /* KloudlessSDK.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DE5464FA18EF33BB00069BC4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "___FULLUSERNAME___";
+			};
+			buildConfigurationList = DE5464FD18EF33BB00069BC4 /* Build configuration list for PBXProject "KloudlessSDK" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = DE5464F918EF33BB00069BC4;
+			productRefGroup = DE54650318EF33BB00069BC4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DE54650118EF33BB00069BC4 /* KloudlessSDK */,
+				DE54651118EF33BC00069BC4 /* KloudlessSDKTests */,
+				DE54653618EF37D200069BC4 /* Framework */,
+				DE54654018EF39BC00069BC4 /* KloudlessResources */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DE54651018EF33BC00069BC4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DE54652018EF33BC00069BC4 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DE54653F18EF39BC00069BC4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DE54654918EF39BD00069BC4 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		DE54653518EF369C00069BC4 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\n\nmkdir -p \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Versions/A/Headers\"\n\n# Link the \"Current\" version to \"A\"\n/bin/ln -sfh A \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Versions/Current\"\n/bin/ln -sfh Versions/Current/Headers \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Headers\"\n/bin/ln -sfh \"Versions/Current/${PRODUCT_NAME}\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/${PRODUCT_NAME}\"\n\n# The -a ensures that the headers maintain the source modification date so that we don't constantly\n# cause propagating rebuilds of files that import these headers.\n/bin/cp -a \"${TARGET_BUILD_DIR}/${PUBLIC_HEADERS_FOLDER_PATH}/\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Versions/A/Headers\"";
+		};
+		DE54653C18EF37FA00069BC4 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\nset +u\n# Avoid recursively calling this script.\nif [[ $SF_MASTER_SCRIPT_RUNNING ]]\nthen\nexit 0\nfi\nset -u\nexport SF_MASTER_SCRIPT_RUNNING=1\n\nSF_TARGET_NAME=${PROJECT_NAME}\nSF_EXECUTABLE_PATH=\"lib${SF_TARGET_NAME}.a\"\nSF_WRAPPER_NAME=\"${SF_TARGET_NAME}.framework\"\n\n# The following conditionals come from\n# https://github.com/kstenerud/iOS-Universal-Framework\n\nif [[ \"$SDK_NAME\" =~ ([A-Za-z]+) ]]\nthen\nSF_SDK_PLATFORM=${BASH_REMATCH[1]}\nelse\necho \"Could not find platform name from SDK_NAME: $SDK_NAME\"\nexit 1\nfi\n\nif [[ \"$SDK_NAME\" =~ ([0-9]+.*$) ]]\nthen\nSF_SDK_VERSION=${BASH_REMATCH[1]}\nelse\necho \"Could not find sdk version from SDK_NAME: $SDK_NAME\"\nexit 1\nfi\n\nif [[ \"$SF_SDK_PLATFORM\" = \"iphoneos\" ]]\nthen\nSF_OTHER_PLATFORM=iphonesimulator\nelse\nSF_OTHER_PLATFORM=iphoneos\nfi\n\nif [[ \"$BUILT_PRODUCTS_DIR\" =~ (.*)$SF_SDK_PLATFORM$ ]]\nthen\nSF_OTHER_BUILT_PRODUCTS_DIR=\"${BASH_REMATCH[1]}${SF_OTHER_PLATFORM}\"\nelse\necho \"Could not find platform name from build products directory: $BUILT_PRODUCTS_DIR\"\nexit 1\nfi\n\n# Build the other platform.\nxcrun xcodebuild -project \"${PROJECT_FILE_PATH}\" -target \"${TARGET_NAME}\" -configuration \"${CONFIGURATION}\" -sdk ${SF_OTHER_PLATFORM}${SF_SDK_VERSION} BUILD_DIR=\"${BUILD_DIR}\" OBJROOT=\"${OBJROOT}\" BUILD_ROOT=\"${BUILD_ROOT}\" SYMROOT=\"${SYMROOT}\" $ACTION\n\n# Smash the two static libraries into one fat binary and store it in the .framework\nxcrun lipo -create \"${BUILT_PRODUCTS_DIR}/${SF_EXECUTABLE_PATH}\" \"${SF_OTHER_BUILT_PRODUCTS_DIR}/${SF_EXECUTABLE_PATH}\" -output \"${BUILT_PRODUCTS_DIR}/${SF_WRAPPER_NAME}/Versions/A/${SF_TARGET_NAME}\"\n\n# Copy the binary to the other architecture folder to have a complete framework in both.\ncp -a \"${BUILT_PRODUCTS_DIR}/${SF_WRAPPER_NAME}/Versions/A/${SF_TARGET_NAME}\" \"${SF_OTHER_BUILT_PRODUCTS_DIR}/${SF_WRAPPER_NAME}/Versions/A/${SF_TARGET_NAME}\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DE5464FE18EF33BB00069BC4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DE54656118EF525000069BC4 /* KClient.m in Sources */,
+				DE54656318EF525000069BC4 /* KRequest.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DE54650E18EF33BC00069BC4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DE54652218EF33BC00069BC4 /* KloudlessSDKTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DE54653D18EF39BC00069BC4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DE54651918EF33BC00069BC4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DE54650118EF33BB00069BC4 /* KloudlessSDK */;
+			targetProxy = DE54651818EF33BC00069BC4 /* PBXContainerItemProxy */;
+		};
+		DE54653B18EF37EF00069BC4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DE54650118EF33BB00069BC4 /* KloudlessSDK */;
+			targetProxy = DE54653A18EF37EF00069BC4 /* PBXContainerItemProxy */;
+		};
+		DE54655518EF3B1300069BC4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DE54654018EF39BC00069BC4 /* KloudlessResources */;
+			targetProxy = DE54655418EF3B1300069BC4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		DE54651E18EF33BC00069BC4 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DE54651F18EF33BC00069BC4 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		DE54654718EF39BD00069BC4 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DE54654818EF39BD00069BC4 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DE54652318EF33BC00069BC4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		DE54652418EF33BC00069BC4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DE54652618EF33BC00069BC4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = NO;
+				DSTROOT = /tmp/KloudlessSDK.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KloudlessSDK/KloudlessSDK-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(PROJECT_NAME)Headers";
+				SKIP_INSTALL = YES;
+				STRIP_STYLE = "non-global";
+			};
+			name = Debug;
+		};
+		DE54652718EF33BC00069BC4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = NO;
+				DSTROOT = /tmp/KloudlessSDK.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KloudlessSDK/KloudlessSDK-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(PROJECT_NAME)Headers";
+				SKIP_INSTALL = YES;
+				STRIP_STYLE = "non-global";
+			};
+			name = Release;
+		};
+		DE54652918EF33BC00069BC4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KloudlessSDK/KloudlessSDK-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "KloudlessSDKTests/KloudlessSDKTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		DE54652A18EF33BC00069BC4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KloudlessSDK/KloudlessSDK-Prefix.pch";
+				INFOPLIST_FILE = "KloudlessSDKTests/KloudlessSDKTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+		DE54653818EF37D200069BC4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		DE54653918EF37D200069BC4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		DE54654C18EF39BD00069BC4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = "";
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KloudlessResources/KloudlessResources-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "KloudlessResources/KloudlessResources-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_NAME = KloudlessSDK;
+				SDKROOT = iphoneos;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		DE54654D18EF39BD00069BC4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = "";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KloudlessResources/KloudlessResources-Prefix.pch";
+				INFOPLIST_FILE = "KloudlessResources/KloudlessResources-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_NAME = KloudlessSDK;
+				SDKROOT = iphoneos;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DE5464FD18EF33BB00069BC4 /* Build configuration list for PBXProject "KloudlessSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DE54652318EF33BC00069BC4 /* Debug */,
+				DE54652418EF33BC00069BC4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DE54652518EF33BC00069BC4 /* Build configuration list for PBXNativeTarget "KloudlessSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DE54652618EF33BC00069BC4 /* Debug */,
+				DE54652718EF33BC00069BC4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		DE54652818EF33BC00069BC4 /* Build configuration list for PBXNativeTarget "KloudlessSDKTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DE54652918EF33BC00069BC4 /* Debug */,
+				DE54652A18EF33BC00069BC4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		DE54653718EF37D200069BC4 /* Build configuration list for PBXAggregateTarget "Framework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DE54653818EF37D200069BC4 /* Debug */,
+				DE54653918EF37D200069BC4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		DE54654B18EF39BD00069BC4 /* Build configuration list for PBXNativeTarget "KloudlessResources" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DE54654C18EF39BD00069BC4 /* Debug */,
+				DE54654D18EF39BD00069BC4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DE5464FA18EF33BB00069BC4 /* Project object */;
+}

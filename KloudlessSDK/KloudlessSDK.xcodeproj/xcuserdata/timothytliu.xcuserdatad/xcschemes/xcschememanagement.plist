@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>Framework.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+		<key>KloudlessResources.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>KloudlessSDK.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>0</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>DE54650118EF33BB00069BC4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DE54651118EF33BC00069BC4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DE54653618EF37D200069BC4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DE54654018EF39BC00069BC4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>
