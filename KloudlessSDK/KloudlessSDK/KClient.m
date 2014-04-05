@@ -3,17 +3,28 @@
 //  WebviewTest
 //
 //  Created by Timothy Liu on 4/3/14.
-//  Copyright (c) 2014 Juan Gonzalez. All rights reserved.
+//  Copyright (c) 2014 Kloudless, Inc. All rights reserved.
 //
 
+#import "KAuth.h"
+#import "KAuthController.h"
 #import "KClient.h"
 
 @interface KClient ()
 
+- (NSMutableURLRequest *)requestWithHost:(NSString*)host
+                                    path:(NSString*)path
+                              bodyParameters:(NSDictionary*)bodyParams;
+
+- (NSMutableURLRequest *)requestWithHost:(NSString*)host
+                                    path:(NSString*)path
+                          bodyParameters:(NSDictionary*)bodyParams
+                                  method:(NSString*)method;
+
 - (NSMutableURLRequest *)requestWithHost:(NSString*)host path:(NSString*)path
-                             parameters:(NSDictionary*)params;
-- (NSMutableURLRequest *)requestWithHost:(NSString*)host path:(NSString*)path
-                             parameters:(NSDictionary*)params method:(NSString*)method;
+                          bodyParameters:(NSDictionary*)bodyParams
+                                  method:(NSString*)method
+                         queryParameters:(NSDictionary*)queryParams;
 
 - (void)checkForAuthenticationFailure:(KRequest *)request;
 
@@ -21,31 +32,51 @@
 
 @implementation KClient
 
-NSString *kSDKVersion = @"0.0.1";
-NSString *kProtocol = @"http";
-NSString *kAPIHost = @"localhost:8002";
-NSString *kWebHost = @"localhost:8000";
-NSString *kDBDropboxAPIVersion = @"0";
-
-- (id)initWithKey:(NSString *)key
+/**
+ Initializes the Kloudless Client with Account Id and Account Key.  A developer can also trivially keep track clients based
+ on the Kloudless Auth object that stores different account ids and keys.
+ @param NSString Account Id
+ @param NSString Account Key
+ @returns Kloudless Client
+ @exception
+ */
+- (id)initWithId:(NSString *)accountId andKey:(NSString *)accountKey
 {
-    if (!key) {
+    if (!accountKey || !accountId) {
         return nil;
     }
     
     if ((self = [super init])) {
-        _key = key;
+        _accountKey = accountKey;
+        _accountId = accountId;
         _requests = [[NSMutableSet alloc] init];
     }
     return self;
 }
 
 #pragma mark Kloudless API Methods /accounts
+/**
+ Makes a Kloudless API request for account metadata of all accounts associated.  Since the iOS SDK uses Account Key authentication,
+ only information for that account is available.
 
-- (void)listAccounts
+ urlParams may include:
+    - active: boolean
+    - page_size: number
+    - page: number
+ 
+ Responder: requestDidListAccounts
+ @param NSDictionary of url parameters
+ @returns NSDictionary accounts in @selector(listAccountsLoaded) of the form
+    - total: total number of objects
+    - count: number of objects on the page
+    - page: page number
+    - accounts: list of account objects (metadata)
+ @exception
+ */
+- (void)listAccounts:(NSDictionary *)queryParams
 {
     NSURLRequest* urlRequest =
-    [self requestWithHost:kAPIHost path:@"accounts" parameters:nil];
+    [self requestWithHost:kAPIHost path:@"accounts" bodyParameters:nil method:@"GET" queryParameters:queryParams];
     
     KRequest* request =
     [[KRequest alloc] initWithURLRequest:urlRequest andInformTarget:self selector:@selector(requestDidListAccounts:)];
@@ -70,11 +101,19 @@ NSString *kDBDropboxAPIVersion = @"0";
     [_requests removeObject:request];
 }
 
-- (void)getAccount:(NSString *)accountId
+/**
+ Makes a Kloudless API request for account information specific to this account.  After authentication,
+ the rest client should have the account id and account key set.
+ @param NSDictionary queryParams
+    - active: true or false
+ @returns NSDictionary accountInfo in @selector(getAccountLoaded)
+ @exception
+ */
+- (void)getAccount:(NSDictionary *)queryParams
 {
-    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@", accountId];
+    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@", _accountId];
     NSURLRequest* urlRequest =
-    [self requestWithHost:kAPIHost path:urlPath parameters:nil];
+    [self requestWithHost:kAPIHost path:urlPath bodyParameters:nil method:@"GET" queryParameters:queryParams];
     
     KRequest* request =
     [[KRequest alloc] initWithURLRequest:urlRequest andInformTarget:self
@@ -100,11 +139,63 @@ NSString *kDBDropboxAPIVersion = @"0";
     [_requests removeObject:request];
 }
 
-- (void)deleteAccount:(NSString *)accountId
-{
-    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@", accountId];
+/**
+ Makes a Kloudless API request to update the account information.  Typically, this involves updating Kloudless'
+ knowledge of tokens if you refresh them or obtain new tokens for the account. Returns new account metadata.
+ @param NSDictionary bodyParams
+    - active
+    - account
+    - service
+    - token
+    - token_secret
+    - refresh_token
+    - token_expiry
+    - refresh_token_expiry
+ @returns NSDictionary accountInfo in @selector(updateAccountLoaded)
+ @exception
+ */
+- (void)updateAccount:(NSDictionary *)bodyParams {
+    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@", _accountId];
     NSURLRequest* urlRequest =
-    [self requestWithHost:kAPIHost path:urlPath parameters:nil method:@"DELETE"];
+    [self requestWithHost:kAPIHost path:urlPath bodyParameters:bodyParams method:@"PATCH"];
+
+    KRequest* request =
+    [[KRequest alloc] initWithURLRequest:urlRequest andInformTarget:self
+                                selector:@selector(requestDidGetAccount:)];
+
+    [_requests addObject:request];
+}
+
+- (void)requestDidUpdatAccount:(KRequest *)request
+{
+    if (request.error) {
+        [self checkForAuthenticationFailure:request];
+        if ([delegate respondsToSelector:@selector(restClient:updateAccountFailedWithError:)]) {
+            [delegate restClient:self updateAccountFailedWithError:request.error];
+        }
+    } else {
+        NSDictionary *accountInfo = (NSDictionary *)[request resultJSON];
+        if ([delegate respondsToSelector:@selector(restClient:updateAccountLoaded:)]) {
+            [delegate restClient:self updateAccountLoaded:accountInfo];
+        }
+    }
+    
+    [_requests removeObject:request];
+}
+
+/**
+ Makes a Kloudless API request to delete the account associated with the current account id and key.
+
+ TODO: clear account id and key, ask for reauthentication
+ @param
+ @returns
+ @exception
+ */
+- (void)deleteAccount
+{
+    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@", _accountId];
+    NSURLRequest* urlRequest =
+    [self requestWithHost:kAPIHost path:urlPath bodyParameters:nil method:@"DELETE"];
     
     KRequest* request =
     [[KRequest alloc] initWithURLRequest:urlRequest andInformTarget:self
@@ -130,13 +221,72 @@ NSString *kDBDropboxAPIVersion = @"0";
     [_requests removeObject:request];
 }
 
+/**
+ Makes a Kloudless API request to search across accounts.  Since the iOS SDK uses Account Key authentication,
+ the search is performed on the current account id.
+ @param NSString search query (required)
+ @param NSDictionary queryParams are additional query parameters
+    - page_size
+    - page
+ @returns NSDictionary searchInfo in @selector(searchAccountLoaded)
+ @exception
+ */
+- (void)searchAccount:(NSString *)query queryParameters:(NSDictionary *)queryParams
+{
+    NSMutableDictionary *newQueryParams = [NSMutableDictionary dictionary];
+    [newQueryParams setObject:query forKey:@"query"];
+    [newQueryParams addEntriesFromDictionary:queryParams];
+
+    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/search", _accountId];
+    NSURLRequest* urlRequest =
+        [self requestWithHost:kAPIHost path:urlPath bodyParameters:nil method:@"GET" queryParameters:queryParams];
+    
+    KRequest* request =
+    [[KRequest alloc] initWithURLRequest:urlRequest andInformTarget:self selector:@selector(requestDidAccountSearch:)];
+    
+    [_requests addObject:request];
+}
+
+
+- (void)requestDidAccountSearch:(KRequest *)request
+{
+    if (request.error) {
+        [self checkForAuthenticationFailure:request];
+        if ([delegate respondsToSelector:@selector(restClient:searchAccountFailedWithError:)]) {
+            [delegate restClient:self searchAccountFailedWithError:request.error];
+        }
+    } else {
+        NSDictionary *searchInfo = (NSDictionary *)[request resultJSON];
+        if ([delegate respondsToSelector:@selector(restClient:searchAccountLoaded:)]) {
+            [delegate restClient:self searchAccountLoaded:searchInfo];
+        }
+    }
+}
+
 #pragma mark Kloudless API Methods /accounts/{account_id}/files/{file_id}
 
-- (void)getFile:(NSString *)accountId withFileId:(NSString *)fileId
+/**
+ Makes a Kloudless API Request for file metadata given a file id.  The fileInfo Dictionary contains:
+    - id
+    - name
+    - size
+    - type
+    - created
+    - modified
+    - account id
+    - parent
+        - id
+        - name
+    - mime_type
+ @param NSString file id
+ @returns NSDictionary of file metadata in @selector(getFileLoaded)
+ @exception
+ */
+- (void)getFile:(NSString *)fileId
 {
-    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/files/%@", accountId, fileId];
+    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/files/%@", _accountId, fileId];
     NSURLRequest* urlRequest =
-    [self requestWithHost:kAPIHost path:urlPath parameters:nil];
+    [self requestWithHost:kAPIHost path:urlPath bodyParameters:nil];
     
     KRequest* request =
     [[KRequest alloc] initWithURLRequest:urlRequest andInformTarget:self
@@ -162,11 +312,20 @@ NSString *kDBDropboxAPIVersion = @"0";
     [_requests removeObject:request];
 }
 
-- (void)updateFile:(NSString *)accountId withFileId:(NSString *)fileId andParams:(NSDictionary *)params
+/**
+ Makes a Kloudless API Request to rename or move a file. Parameters to be sent in the body can include:
+    - name (new name)
+    - account (new account location)
+    - parent_id (new parent location)
+ @param NSDictionary bodyParams
+ @returns NSDictionary of new file metadata in @selector(updateFileLoaded)
+ @exception
+ */
+- (void)updateFile:(NSString *)fileId bodyParameters:(NSDictionary *)bodyParams
 {
-    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/files/%@", accountId, fileId];
+    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/files/%@", _accountId, fileId];
     NSURLRequest* urlRequest =
-    [self requestWithHost:kAPIHost path:urlPath parameters:params method:@"PATCH"];
+    [self requestWithHost:kAPIHost path:urlPath bodyParameters:bodyParams method:@"PATCH"];
     
     KRequest* request =
     [[KRequest alloc] initWithURLRequest:urlRequest andInformTarget:self
@@ -192,13 +351,21 @@ NSString *kDBDropboxAPIVersion = @"0";
     [_requests removeObject:request];
 }
 
-- (void)uploadFile:(NSString *)accountId withFileInfo:(NSString *)fileInfo andData:(NSData *)data
+/**
+ Makes a Kloudless API Request to upload a file to this specific account with file metadata. fileInfo is a JSON string containing:
+    - name
+    - parent_id
+ @param fileInfo (metadata)
+ @param data (file contents)
+ @param queryParams
+    - overwrite: true or false whether to overwrite an existing file
+ @returns NSDictionary of new file metadata in @selector(uploadFileLoaded)
+ @exception
+ */
+- (void)uploadFileData:(NSString *)fileInfo andData:(NSData *)data queryParameters:(NSDictionary *)queryParams
 {
-    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/files", accountId];
-
-    // add file/filename/metadata parameters
-    // parse fileInfo into JSON to find name
-    
+    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/files", _accountId];
+   
     NSError *error;
     NSDictionary *fileParams = [NSJSONSerialization JSONObjectWithData:[fileInfo dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:&error];
     NSString *name = [fileParams objectForKey:@"name"];
@@ -206,7 +373,7 @@ NSString *kDBDropboxAPIVersion = @"0";
     NSMutableDictionary *params = [[NSMutableDictionary alloc]
                                    initWithObjectsAndKeys:name, @"name", fileInfo, @"metadata", data, @"file", nil];
     NSURLRequest* urlRequest =
-    [self requestWithHost:kAPIHost path:urlPath parameters:params method:@"POST"];
+    [self requestWithHost:kAPIHost path:urlPath bodyParameters:params method:@"POST" queryParameters:queryParams];
     
     KRequest* request =
     [[KRequest alloc] initWithURLRequest:urlRequest andInformTarget:self
@@ -219,24 +386,70 @@ NSString *kDBDropboxAPIVersion = @"0";
 {
     if (request.error) {
         [self checkForAuthenticationFailure:request];
-        if ([delegate respondsToSelector:@selector(restClient:uploadFileFailedWithError:)]) {
-            [delegate restClient:self uploadFileFailedWithError:request.error];
+        if ([delegate respondsToSelector:@selector(restClient:uploadFileDataFailedWithError:)]) {
+            [delegate restClient:self uploadFileDataFailedWithError:request.error];
         }
     } else {
         NSDictionary *fileInfo = (NSDictionary *)[request resultJSON];
-        if ([delegate respondsToSelector:@selector(restClient:uploadFileLoaded:)]) {
-            [delegate restClient:self uploadFileLoaded:fileInfo];
+        if ([delegate respondsToSelector:@selector(restClient:uploadFileDataLoaded:)]) {
+            [delegate restClient:self uploadFileDataLoaded:fileInfo];
         }
     }
     
     [_requests removeObject:request];
 }
 
-- (void)downloadFile:(NSString *)accountId withFileId:(NSString *)fileId
+/**
+ Makes a Kloudless API Request to update file data for a specific file.
+ @param fileId (the file identifier)
+ @param data (file contents)
+ @returns NSDictionary of new file metadata in @selector(uploadFileLoaded)
+ @exception
+ */
+- (void)updateFileData:(NSString *)fileId andData:(NSData *)data
 {
-    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/files/%@/contents", accountId, fileId];
+    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/files/%@", _accountId, fileId];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc]
+                                   initWithObjectsAndKeys:data, @"file", nil];
     NSURLRequest* urlRequest =
-    [self requestWithHost:kAPIHost path:urlPath parameters:nil];
+    [self requestWithHost:kAPIHost path:urlPath bodyParameters:params method:@"PUT"];
+    
+    KRequest* request =
+    [[KRequest alloc] initWithURLRequest:urlRequest andInformTarget:self
+                                selector:@selector(requestDidUploadFile:)];
+    
+    [_requests addObject:request];
+}
+
+- (void)requestDidUpdateFileData:(KRequest *)request
+{
+    if (request.error) {
+        [self checkForAuthenticationFailure:request];
+        if ([delegate respondsToSelector:@selector(restClient:updateFileDataFailedWithError:)]) {
+            [delegate restClient:self updateFileDataFailedWithError:request.error];
+        }
+    } else {
+        NSDictionary *fileInfo = (NSDictionary *)[request resultJSON];
+        if ([delegate respondsToSelector:@selector(restClient:updateFileDataLoaded:)]) {
+            [delegate restClient:self updateFileDataLoaded:fileInfo];
+        }
+    }
+    
+    [_requests removeObject:request];
+}
+
+/**
+ Makes a Kloudless API Request to download a file.
+ @param fileId (file id string)
+ @returns NSData of file in @selector(downloadFileLoaded)
+ @exception
+ */
+- (void)downloadFile:(NSString *)fileId
+{
+    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/files/%@/contents", _accountId, fileId];
+    NSURLRequest* urlRequest =
+    [self requestWithHost:kAPIHost path:urlPath bodyParameters:nil];
     
     KRequest* request =
     [[KRequest alloc] initWithURLRequest:urlRequest andInformTarget:self
@@ -262,11 +475,21 @@ NSString *kDBDropboxAPIVersion = @"0";
     [_requests removeObject:request];
 }
 
-- (void)deleteFile:(NSString *)accountId withFileId:(NSString *)fileId
+/**
+ TODO: copy file
+ */
+
+/**
+ Makes a Kloudless API Request to delete a file.
+ @param fileId (file id string)
+ @returns a success or failed response
+ @exception
+ */
+- (void)deleteFile:(NSString *)fileId
 {
-    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/files/%@", accountId, fileId];
+    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/files/%@", _accountId, fileId];
     NSURLRequest* urlRequest =
-    [self requestWithHost:kAPIHost path:urlPath parameters:nil method:@"DELETE"];
+    [self requestWithHost:kAPIHost path:urlPath bodyParameters:nil method:@"DELETE"];
     
     KRequest* request =
     [[KRequest alloc] initWithURLRequest:urlRequest andInformTarget:self
@@ -292,13 +515,69 @@ NSString *kDBDropboxAPIVersion = @"0";
     [_requests removeObject:request];
 }
 
+/**
+ Makes a Kloudless API request to return recently modified files.  Since the iOS SDK uses Account Key authentication,
+ the search is performed on the current account id.
+ @param NSDictionary queryParams
+    - page_size: number
+    - page: number
+ @returns NSData of file in @selector(recentFilesLoaded)
+ @exception
+ */
+- (void)getRecentFiles:(NSDictionary *)queryParams
+{
+    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/recent", _accountId];
+    NSURLRequest* urlRequest =
+    [self requestWithHost:kAPIHost path:urlPath bodyParameters:nil method:@"GET" queryParameters:queryParams];
+    
+    KRequest* request =
+    [[KRequest alloc] initWithURLRequest:urlRequest andInformTarget:self
+                                selector:@selector(requestDidRecentFiles:)];
+    
+    [_requests addObject:request];
+}
+
+- (void)requestDidRecentFiles:(KRequest *)request
+{
+    if (request.error) {
+        [self checkForAuthenticationFailure:request];
+        if ([delegate respondsToSelector:@selector(restClient:recentFilesFailedWithError:)]) {
+            [delegate restClient:self recentFilesFailedWithError:request.error];
+        }
+    } else {
+        NSDictionary *recentInfo = (NSDictionary *)[request resultJSON];
+        if ([delegate respondsToSelector:@selector(restClient:recentFilesLoaded:)]) {
+            [delegate restClient:self recentFilesLoaded:recentInfo];
+        }
+    }
+    
+    [_requests removeObject:request];
+}
+
 #pragma mark Kloudless API Methods /accounts/{account_id}/folders/{folder_id}
 
-- (void)getFolder:(NSString *)accountId withFolderId:(NSString *)folderId
+/**
+ Makes a Kloudless API Request for folder metadata given a folder id.  The folderInfo Dictionary contains:
+     - id
+     - name
+     - size
+     - type
+     - created
+     - modified
+     - account id
+     - parent
+        - id
+        - name
+     - mime_type
+ @param NSString file id
+ @returns NSDictionary of file metadata in @selector(getFileLoaded)
+ @exception
+ */
+- (void)getFolder:(NSString *)folderId
 {
-    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/folders/%@", accountId, folderId];
+    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/folders/%@", _accountId, folderId];
     NSURLRequest* urlRequest =
-    [self requestWithHost:kAPIHost path:urlPath parameters:nil];
+    [self requestWithHost:kAPIHost path:urlPath bodyParameters:nil];
     
     KRequest* request =
     [[KRequest alloc] initWithURLRequest:urlRequest andInformTarget:self
@@ -311,24 +590,32 @@ NSString *kDBDropboxAPIVersion = @"0";
 {
     if (request.error) {
         [self checkForAuthenticationFailure:request];
-        if ([delegate respondsToSelector:@selector(restClient:getFileFailedWithError:)]) {
-            [delegate restClient:self getFileFailedWithError:request.error];
+        if ([delegate respondsToSelector:@selector(restClient:getFolderFailedWithError:)]) {
+            [delegate restClient:self getFolderFailedWithError:request.error];
         }
     } else {
-        NSDictionary *fileInfo = (NSDictionary *)[request resultJSON];
-        if ([delegate respondsToSelector:@selector(restClient:getFileLoaded:)]) {
-            [delegate restClient:self getFileLoaded:fileInfo];
+        NSDictionary *folderInfo = (NSDictionary *)[request resultJSON];
+        if ([delegate respondsToSelector:@selector(restClient:getFolderLoaded:)]) {
+            [delegate restClient:self getFolderLoaded:folderInfo];
         }
     }
     
     [_requests removeObject:request];
 }
 
-- (void)updateFolder:(NSString *)accountId withFolderId:(NSString *)folderId andParams:(NSDictionary *)params
+/**
+ Makes a Kloudless API Request to rename or move a folder. Parameters can include:
+    - name (new name)
+    - parent_id (new parent location)
+ @param NSDictionary parameters
+ @returns NSDictionary of new folder metadata in @selector(updateFolderLoaded)
+ @exception
+ */
+- (void)updateFolder:(NSString *)folderId bodyParameters:(NSDictionary *)bodyParams
 {
-    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/folders/%@", accountId, folderId];
+    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/folders/%@", _accountId, folderId];
     NSURLRequest* urlRequest =
-    [self requestWithHost:kAPIHost path:urlPath parameters:params method:@"PATCH"];
+    [self requestWithHost:kAPIHost path:urlPath bodyParameters:bodyParams method:@"PATCH"];
     
     KRequest* request =
     [[KRequest alloc] initWithURLRequest:urlRequest andInformTarget:self
@@ -354,12 +641,27 @@ NSString *kDBDropboxAPIVersion = @"0";
     [_requests removeObject:request];
 }
 
-- (void)createFolder:(NSString *)accountId andParams:(NSDictionary *)params
+/**
+ Makes a Kloudless API Request to create a folder.
+ 
+ Body Parameters can include:
+    - parent_id
+    - name
+ 
+ Query Parameters can include:
+    - conflict_if_exists: if true, an existing folder with the same name will result in an error
+ 
+ @param NSDictionary bodyParams
+ @param NSDictionary queryParams
+ @returns NSDictionary folderInfo metadata of the new folder created.
+ @exception
+ */
+- (void)createFolder:(NSDictionary *)bodyParams queryParameters:(NSDictionary *)queryParams
 {
-    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/folders", accountId];
+    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/folders", _accountId];
     
     NSURLRequest* urlRequest =
-    [self requestWithHost:kAPIHost path:urlPath parameters:params method:@"POST"];
+    [self requestWithHost:kAPIHost path:urlPath bodyParameters:bodyParams method:@"POST" queryParameters:queryParams];
     
     KRequest* request =
     [[KRequest alloc] initWithURLRequest:urlRequest andInformTarget:self
@@ -385,11 +687,24 @@ NSString *kDBDropboxAPIVersion = @"0";
     [_requests removeObject:request];
 }
 
-- (void)getFolderContents:(NSString *)accountId withFolderId:(NSString *)folderId
+/**
+ Makes a Kloudless API Request to retrieve the contents of a specific folder.
+ @param NSString folderId
+ @param NSDictionary queryParams
+    - page
+    - page_size
+ @returns NSDictionary folderContents containing the following information
+    - count
+    - objects
+    - page
+    - has_next
+ @exception
+ */
+- (void)getFolderContents:(NSString *)folderId queryParameters:(NSDictionary *)queryParams
 {
-    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/folders/%@/contents", accountId, folderId];
+    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/folders/%@/contents", _accountId, folderId];
     NSURLRequest* urlRequest =
-    [self requestWithHost:kAPIHost path:urlPath parameters:nil];
+    [self requestWithHost:kAPIHost path:urlPath bodyParameters:nil method:@"GET" queryParameters:queryParams];
     
     KRequest* request =
     [[KRequest alloc] initWithURLRequest:urlRequest andInformTarget:self
@@ -415,11 +730,21 @@ NSString *kDBDropboxAPIVersion = @"0";
     [_requests removeObject:request];
 }
 
-- (void)deleteFolder:(NSString *)accountId withFolderId:(NSString *)folderId
+/**
+ TODO: copy folder
+ */
+
+/**
+ Makes a Kloudless API Request to delete a folder
+ @param NSString folderId
+ @returns success or false of whether the foler was deleted
+ @exception
+ */
+- (void)deleteFolder:(NSString *)folderId
 {
-    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/folders/%@", accountId, folderId];
+    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/folders/%@", _accountId, folderId];
     NSURLRequest* urlRequest =
-    [self requestWithHost:kAPIHost path:urlPath parameters:nil method:@"DELETE"];
+    [self requestWithHost:kAPIHost path:urlPath bodyParameters:nil method:@"DELETE"];
     
     KRequest* request =
     [[KRequest alloc] initWithURLRequest:urlRequest andInformTarget:self
@@ -445,13 +770,26 @@ NSString *kDBDropboxAPIVersion = @"0";
     [_requests removeObject:request];
 }
 
-#pragma mark Kloudless API Methods /accounts
+#pragma mark Kloudless API Methods /accounts/{account_id}/links
 
-- (void)listLinks:(NSString *)accountId
+/**
+ Makes a Kloudless API Request to list links associated with the account.
+ @param queryParams
+    - active
+    - page_size
+    - page
+ @returns NSDictionary links in @selector(listLinksLoaded)
+    - total (total number of objects)
+    - count (number of objects on this page)
+    - page (page number)
+    - objects (list of link objects)
+ @exception
+ */
+- (void)listLinks:(NSDictionary *)queryParams
 {
-    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/links", accountId];
+    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/links", _accountId];
     NSURLRequest* urlRequest =
-    [self requestWithHost:kAPIHost path:urlPath parameters:nil];
+    [self requestWithHost:kAPIHost path:urlPath bodyParameters:nil method:@"GET" queryParameters:queryParams];
     
     KRequest* request =
     [[KRequest alloc] initWithURLRequest:urlRequest andInformTarget:self selector:@selector(requestDidListLinks:)];
@@ -476,11 +814,19 @@ NSString *kDBDropboxAPIVersion = @"0";
     [_requests removeObject:request];
 }
 
-- (void)getLink:(NSString *)accountId withLinkId:(NSString *)linkId
+/**
+ Makes a Kloudless API request to retrieve metadata of a link
+ @param NSString linkId (identifier)
+ @param NSDictionary queryParams
+    - active (true or false)
+ @returns NSDictionary linkInfo in @selector(getLinkLoaded)
+ @exception
+ */
+- (void)getLink:(NSString *)linkId queryParameters:(NSDictionary *)queryParams;
 {
-    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/links/%@", accountId, linkId];
+    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/links/%@", _accountId, linkId];
     NSURLRequest* urlRequest =
-    [self requestWithHost:kAPIHost path:urlPath parameters:nil];
+    [self requestWithHost:kAPIHost path:urlPath bodyParameters:nil method:@"GET" queryParameters:queryParams];
     
     KRequest* request =
     [[KRequest alloc] initWithURLRequest:urlRequest andInformTarget:self
@@ -506,12 +852,62 @@ NSString *kDBDropboxAPIVersion = @"0";
     [_requests removeObject:request];
 }
 
-- (void)createLink:(NSString *)accountId andParams:(NSDictionary *)params
+/**
+ Makes a Kloudless API request to update metadata of a link
+ @param NSString linkId (linkIdentifier)
+ @param NSDictionary bodyParams
+     - active (true or false)
+     - password (password for the link)
+     - expiration (ISO 8601 timestamp specifying when the link expires)
+ @returns NSDictionary linkInfo of updated link in @selector(updateLinkLoaded)
+ @exception <#throws#>
+ */
+- (void)updateLink:(NSString *)linkId bodyParameters:(NSDictionary *)bodyParams;
 {
-    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/links", accountId];
+    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/links/%@", _accountId, linkId];
+    NSURLRequest* urlRequest =
+    [self requestWithHost:kAPIHost path:urlPath bodyParameters:bodyParams method:@"PATCH"];
+    
+    KRequest* request =
+    [[KRequest alloc] initWithURLRequest:urlRequest andInformTarget:self
+                                selector:@selector(requestDidUpdateLink:)];
+    
+    [_requests addObject:request];
+}
+
+- (void)requestDidUpdateLink:(KRequest *)request
+{
+    if (request.error) {
+        [self checkForAuthenticationFailure:request];
+        if ([delegate respondsToSelector:@selector(restClient:updateLinkFailedWithError:)]) {
+            [delegate restClient:self updateLinkFailedWithError:request.error];
+        }
+    } else {
+        NSDictionary *linkInfo = (NSDictionary *)[request resultJSON];
+        if ([delegate respondsToSelector:@selector(restClient:updateLinkLoaded:)]) {
+            [delegate restClient:self updateLinkLoaded:linkInfo];
+        }
+    }
+    
+    [_requests removeObject:request];
+}
+
+/**
+ Makes a Kloudless API Request to create a link
+ @param bodyParams
+    - file_id (the file identifier you want to create a link for)
+    - password (password for the link)
+    - expiration (ISO 8601 timestamp specifying when the link expires)
+    - direct (boolean specifying whether it's direct or not)
+ @returns NSDictionary linkInfo metadata of newly created link in @selector(createLinkLoaded)
+ @exception
+ */
+- (void)createLink:(NSDictionary *)bodyParams
+{
+    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/links", _accountId];
     
     NSURLRequest* urlRequest =
-    [self requestWithHost:kAPIHost path:urlPath parameters:params method:@"POST"];
+    [self requestWithHost:kAPIHost path:urlPath bodyParameters:bodyParams method:@"POST"];
     
     KRequest* request =
     [[KRequest alloc] initWithURLRequest:urlRequest andInformTarget:self
@@ -537,11 +933,17 @@ NSString *kDBDropboxAPIVersion = @"0";
     [_requests removeObject:request];
 }
 
-- (void)deleteLink:(NSString *)accountId withLinkId:(NSString *)linkId
+/**
+ Makes a Kloudless API Request to delete a link
+ @param NSString linkId (identifier)
+ @returns success of true or false in @selector(deleteLinkLoaded)
+ @exception
+ */
+- (void)deleteLink:(NSString *)linkId
 {
-    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/links/%@", accountId, linkId];
+    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/links/%@", _accountId, linkId];
     NSURLRequest* urlRequest =
-    [self requestWithHost:kAPIHost path:urlPath parameters:nil method:@"DELETE"];
+    [self requestWithHost:kAPIHost path:urlPath bodyParameters:nil method:@"DELETE"];
     
     KRequest* request =
     [[KRequest alloc] initWithURLRequest:urlRequest andInformTarget:self
@@ -582,49 +984,80 @@ NSString *kDBDropboxAPIVersion = @"0";
     return escapedPath;
 }
 
-- (NSMutableURLRequest*)requestWithHost:(NSString*)host path:(NSString*)path
-                             parameters:(NSDictionary*)params {
-    
-    return [self requestWithHost:host path:path parameters:params method:nil];
+- (NSMutableURLRequest*)requestWithHost:(NSString*)host
+                                   path:(NSString*)path
+                         bodyParameters:(NSDictionary*)bodyParams {
+
+    return [self requestWithHost:host path:path bodyParameters:bodyParams method:nil];
 }
 
-- (NSMutableURLRequest*)requestWithHost:(NSString*)host path:(NSString*)path
-                             parameters:(NSDictionary*)params method:(NSString*)method {
+- (NSMutableURLRequest*)requestWithHost:(NSString*)host
+                                   path:(NSString*)path
+                         bodyParameters:(NSDictionary*)bodyParams
+                                 method:(NSString*)method {
+
+    return [self requestWithHost:host path:path bodyParameters:bodyParams method:method queryParameters:nil ];
+    
+}
+
+- (NSMutableURLRequest*)requestWithHost:(NSString*)host
+                                   path:(NSString*)path
+                         bodyParameters:(NSDictionary*)bodyParams
+                                 method:(NSString*)method
+                        queryParameters:(NSDictionary*)queryParams {
     
     NSString* escapedPath = [KClient escapePath:path];
     NSString* urlString = [NSString stringWithFormat:@"%@://%@/v%@/%@",
-                           kProtocol, host, kDBDropboxAPIVersion, escapedPath];
-    NSLog(@"urlString: %@", urlString);
+                           kProtocolHTTPS, host, kAPIVersion, escapedPath];
+
+    // Adding URL Parameters if there are any
+    NSMutableArray *paramParts = [NSMutableArray array];
+    for (NSString *queryKey in queryParams) {
+        NSString *queryValue = [queryParams objectForKey:queryKey];
+        NSString *paramPart = [NSString stringWithFormat:@"%@=%@", [KClient escapePath:queryKey], [KClient escapePath:queryValue]];
+        [paramParts addObject:paramPart];
+    }
+    if ([paramParts count] > 0) {
+        urlString = [NSString stringWithFormat:@"%@?%@", urlString, [paramParts componentsJoinedByString:@"&"]];
+    }
     
     NSURL* url = [NSURL URLWithString:urlString];
+    NSLog(@"urlString: %@", urlString);
 
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
-    NSString *authorization = [NSString stringWithFormat:@"AccountKey %@", _key];
+    NSString *authorization = [NSString stringWithFormat:@"AccountKey %@", _accountKey];
     
     if (method) {
         [urlRequest setHTTPMethod:method];
     }
 
-    if ([params count] > 0) {
+    if ([bodyParams count] > 0) {
         // no file param key, application/json, not uploading file
-        if (![params objectForKey:@"file"]) {
+        if (![bodyParams objectForKey:@"file"]) {
             NSError *error;
-            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:params
+            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:bodyParams
                                                                options: 0
                                                                  error: &error];
             NSString *paramString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
             [urlRequest setHTTPBody:[paramString dataUsingEncoding:NSUTF8StringEncoding]];
             [urlRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-        // if passed in a file parameter, treat as file upload with data, need multipart/form request
+        } else if ([bodyParams count] == 1) {
+            // only the file parameter, must be a put request
+            NSData *file = [bodyParams objectForKey:@"file"];
+            NSMutableData *body = [NSMutableData data];
+            [body appendData:file];
+            [urlRequest setHTTPBody:body];
         } else {
+            // if passed in a file parameter, treat as file upload with data, need multipart/form request
+
             NSString *boundary = [[NSUUID UUID] UUIDString];
             NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
 
             NSMutableData *body = [NSMutableData data];
             // grab file and name
-            NSString *name = [params objectForKey:@"name"];
-            NSData *file = [params objectForKey:@"file"];
-            NSString *metadata = [params objectForKey:@"metadata"];
+            NSString *name = [bodyParams objectForKey:@"name"];
+            NSData *file = [bodyParams objectForKey:@"file"];
+            NSString *metadata = [bodyParams objectForKey:@"metadata"];
             
             [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
             [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"file\"; filename=\"%@.jpg\"\r\n", name] dataUsingEncoding:NSUTF8StringEncoding]];

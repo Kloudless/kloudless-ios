@@ -3,7 +3,7 @@
 //  WebviewTest
 //
 //  Created by Timothy Liu on 4/3/14.
-//  Copyright (c) 2014 Juan Gonzalez. All rights reserved.
+//  Copyright (c) 2014 Kloudless, Inc. All rights reserved.
 //
 
 #import "KRequest.h"
@@ -53,7 +53,13 @@ NSString *kDomain = @"kloudless.com";
 
 - (NSObject *)resultJSON {
     NSError *e;
-    return [NSJSONSerialization JSONObjectWithData:resultData options:NSJSONReadingMutableContainers error:&e];
+    NSJSONSerialization *serialJSON = [NSJSONSerialization JSONObjectWithData:resultData options:NSJSONReadingMutableContainers error:&e];
+    if (e) {
+        NSLog(@"JSON error: %@", e);
+        return nil;
+    } else {
+        return serialJSON;
+    }
 }
 
 - (NSInteger)statusCode {
@@ -66,11 +72,11 @@ NSString *kDomain = @"kloudless.com";
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
     _response = (NSHTTPURLResponse *) response;
+    resultData = [NSMutableData new];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
-    resultData = [NSMutableData new];
     [resultData appendData:data];
 }
 

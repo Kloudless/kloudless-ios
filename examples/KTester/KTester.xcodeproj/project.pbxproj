@@ -1,0 +1,503 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DE54657918EFF36800069BC4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE54657818EFF36800069BC4 /* Foundation.framework */; };
+		DE54657B18EFF36800069BC4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE54657A18EFF36800069BC4 /* CoreGraphics.framework */; };
+		DE54657D18EFF36800069BC4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE54657C18EFF36800069BC4 /* UIKit.framework */; };
+		DE54658318EFF36800069BC4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DE54658118EFF36800069BC4 /* InfoPlist.strings */; };
+		DE54658518EFF36800069BC4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DE54658418EFF36800069BC4 /* main.m */; };
+		DE54658918EFF36800069BC4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DE54658818EFF36800069BC4 /* AppDelegate.m */; };
+		DE54658C18EFF36800069BC4 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE54658A18EFF36800069BC4 /* Main_iPhone.storyboard */; };
+		DE54658F18EFF36800069BC4 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE54658D18EFF36800069BC4 /* Main_iPad.storyboard */; };
+		DE54659218EFF36800069BC4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE54659118EFF36800069BC4 /* ViewController.m */; };
+		DE54659418EFF36800069BC4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE54659318EFF36800069BC4 /* Images.xcassets */; };
+		DE54659B18EFF36800069BC4 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE54659A18EFF36800069BC4 /* XCTest.framework */; };
+		DE54659C18EFF36800069BC4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE54657818EFF36800069BC4 /* Foundation.framework */; };
+		DE54659D18EFF36800069BC4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE54657C18EFF36800069BC4 /* UIKit.framework */; };
+		DE5465A518EFF36800069BC4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DE5465A318EFF36800069BC4 /* InfoPlist.strings */; };
+		DE5465A718EFF36800069BC4 /* KTesterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DE5465A618EFF36800069BC4 /* KTesterTests.m */; };
+		DEFD5F8D19D0D4970036E08C /* KloudlessSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEFD5F8C19D0D4970036E08C /* KloudlessSDK.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DE54659E18EFF36800069BC4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DE54656D18EFF36700069BC4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DE54657418EFF36700069BC4;
+			remoteInfo = KTester;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		DE54657518EFF36700069BC4 /* KTester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KTester.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DE54657818EFF36800069BC4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		DE54657A18EFF36800069BC4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		DE54657C18EFF36800069BC4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		DE54658018EFF36800069BC4 /* KTester-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KTester-Info.plist"; sourceTree = "<group>"; };
+		DE54658218EFF36800069BC4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DE54658418EFF36800069BC4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		DE54658618EFF36800069BC4 /* KTester-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KTester-Prefix.pch"; sourceTree = "<group>"; };
+		DE54658718EFF36800069BC4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		DE54658818EFF36800069BC4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		DE54658B18EFF36800069BC4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
+		DE54658E18EFF36800069BC4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
+		DE54659018EFF36800069BC4 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		DE54659118EFF36800069BC4 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		DE54659318EFF36800069BC4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		DE54659918EFF36800069BC4 /* KTesterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KTesterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DE54659A18EFF36800069BC4 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		DE5465A218EFF36800069BC4 /* KTesterTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KTesterTests-Info.plist"; sourceTree = "<group>"; };
+		DE5465A418EFF36800069BC4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DE5465A618EFF36800069BC4 /* KTesterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KTesterTests.m; sourceTree = "<group>"; };
+		DEFD5F8C19D0D4970036E08C /* KloudlessSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KloudlessSDK.framework; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DE54657218EFF36700069BC4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DE54657B18EFF36800069BC4 /* CoreGraphics.framework in Frameworks */,
+				DE54657D18EFF36800069BC4 /* UIKit.framework in Frameworks */,
+				DEFD5F8D19D0D4970036E08C /* KloudlessSDK.framework in Frameworks */,
+				DE54657918EFF36800069BC4 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DE54659618EFF36800069BC4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DE54659B18EFF36800069BC4 /* XCTest.framework in Frameworks */,
+				DE54659D18EFF36800069BC4 /* UIKit.framework in Frameworks */,
+				DE54659C18EFF36800069BC4 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DE54656C18EFF36700069BC4 = {
+			isa = PBXGroup;
+			children = (
+				DE54657E18EFF36800069BC4 /* KTester */,
+				DE5465A018EFF36800069BC4 /* KTesterTests */,
+				DE54657718EFF36800069BC4 /* Frameworks */,
+				DE54657618EFF36700069BC4 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DE54657618EFF36700069BC4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DE54657518EFF36700069BC4 /* KTester.app */,
+				DE54659918EFF36800069BC4 /* KTesterTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DE54657718EFF36800069BC4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DEFD5F8C19D0D4970036E08C /* KloudlessSDK.framework */,
+				DE54657818EFF36800069BC4 /* Foundation.framework */,
+				DE54657A18EFF36800069BC4 /* CoreGraphics.framework */,
+				DE54657C18EFF36800069BC4 /* UIKit.framework */,
+				DE54659A18EFF36800069BC4 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DE54657E18EFF36800069BC4 /* KTester */ = {
+			isa = PBXGroup;
+			children = (
+				DE54658718EFF36800069BC4 /* AppDelegate.h */,
+				DE54658818EFF36800069BC4 /* AppDelegate.m */,
+				DE54658A18EFF36800069BC4 /* Main_iPhone.storyboard */,
+				DE54658D18EFF36800069BC4 /* Main_iPad.storyboard */,
+				DE54659018EFF36800069BC4 /* ViewController.h */,
+				DE54659118EFF36800069BC4 /* ViewController.m */,
+				DE54659318EFF36800069BC4 /* Images.xcassets */,
+				DE54657F18EFF36800069BC4 /* Supporting Files */,
+			);
+			path = KTester;
+			sourceTree = "<group>";
+		};
+		DE54657F18EFF36800069BC4 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DE54658018EFF36800069BC4 /* KTester-Info.plist */,
+				DE54658118EFF36800069BC4 /* InfoPlist.strings */,
+				DE54658418EFF36800069BC4 /* main.m */,
+				DE54658618EFF36800069BC4 /* KTester-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DE5465A018EFF36800069BC4 /* KTesterTests */ = {
+			isa = PBXGroup;
+			children = (
+				DE5465A618EFF36800069BC4 /* KTesterTests.m */,
+				DE5465A118EFF36800069BC4 /* Supporting Files */,
+			);
+			path = KTesterTests;
+			sourceTree = "<group>";
+		};
+		DE5465A118EFF36800069BC4 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DE5465A218EFF36800069BC4 /* KTesterTests-Info.plist */,
+				DE5465A318EFF36800069BC4 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DE54657418EFF36700069BC4 /* KTester */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DE5465AA18EFF36800069BC4 /* Build configuration list for PBXNativeTarget "KTester" */;
+			buildPhases = (
+				DE54657118EFF36700069BC4 /* Sources */,
+				DE54657218EFF36700069BC4 /* Frameworks */,
+				DE54657318EFF36700069BC4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KTester;
+			productName = KTester;
+			productReference = DE54657518EFF36700069BC4 /* KTester.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DE54659818EFF36800069BC4 /* KTesterTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DE5465AD18EFF36800069BC4 /* Build configuration list for PBXNativeTarget "KTesterTests" */;
+			buildPhases = (
+				DE54659518EFF36800069BC4 /* Sources */,
+				DE54659618EFF36800069BC4 /* Frameworks */,
+				DE54659718EFF36800069BC4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DE54659F18EFF36800069BC4 /* PBXTargetDependency */,
+			);
+			name = KTesterTests;
+			productName = KTesterTests;
+			productReference = DE54659918EFF36800069BC4 /* KTesterTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DE54656D18EFF36700069BC4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "___FULLUSERNAME___";
+				TargetAttributes = {
+					DE54659818EFF36800069BC4 = {
+						TestTargetID = DE54657418EFF36700069BC4;
+					};
+				};
+			};
+			buildConfigurationList = DE54657018EFF36700069BC4 /* Build configuration list for PBXProject "KTester" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DE54656C18EFF36700069BC4;
+			productRefGroup = DE54657618EFF36700069BC4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DE54657418EFF36700069BC4 /* KTester */,
+				DE54659818EFF36800069BC4 /* KTesterTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DE54657318EFF36700069BC4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DE54658F18EFF36800069BC4 /* Main_iPad.storyboard in Resources */,
+				DE54659418EFF36800069BC4 /* Images.xcassets in Resources */,
+				DE54658C18EFF36800069BC4 /* Main_iPhone.storyboard in Resources */,
+				DE54658318EFF36800069BC4 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DE54659718EFF36800069BC4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DE5465A518EFF36800069BC4 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DE54657118EFF36700069BC4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DE54659218EFF36800069BC4 /* ViewController.m in Sources */,
+				DE54658918EFF36800069BC4 /* AppDelegate.m in Sources */,
+				DE54658518EFF36800069BC4 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DE54659518EFF36800069BC4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DE5465A718EFF36800069BC4 /* KTesterTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DE54659F18EFF36800069BC4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DE54657418EFF36700069BC4 /* KTester */;
+			targetProxy = DE54659E18EFF36800069BC4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		DE54658118EFF36800069BC4 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DE54658218EFF36800069BC4 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		DE54658A18EFF36800069BC4 /* Main_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DE54658B18EFF36800069BC4 /* Base */,
+			);
+			name = Main_iPhone.storyboard;
+			sourceTree = "<group>";
+		};
+		DE54658D18EFF36800069BC4 /* Main_iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DE54658E18EFF36800069BC4 /* Base */,
+			);
+			name = Main_iPad.storyboard;
+			sourceTree = "<group>";
+		};
+		DE5465A318EFF36800069BC4 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DE5465A418EFF36800069BC4 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DE5465A818EFF36800069BC4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DE5465A918EFF36800069BC4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DE5465AB18EFF36800069BC4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					/Users/timothytliu/Desktop,
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/KloudlessSDK-dliukrmwrxoohdchcdcgvmsbnvfg/Build/Products/Debug-iphoneos",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KTester/KTester-Prefix.pch";
+				INFOPLIST_FILE = "KTester/KTester-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		DE5465AC18EFF36800069BC4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					/Users/timothytliu/Desktop,
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/KloudlessSDK-dliukrmwrxoohdchcdcgvmsbnvfg/Build/Products/Debug-iphoneos",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KTester/KTester-Prefix.pch";
+				INFOPLIST_FILE = "KTester/KTester-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		DE5465AE18EFF36800069BC4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/KTester.app/KTester";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KTester/KTester-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "KTesterTests/KTesterTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		DE5465AF18EFF36800069BC4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/KTester.app/KTester";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KTester/KTester-Prefix.pch";
+				INFOPLIST_FILE = "KTesterTests/KTesterTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DE54657018EFF36700069BC4 /* Build configuration list for PBXProject "KTester" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DE5465A818EFF36800069BC4 /* Debug */,
+				DE5465A918EFF36800069BC4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DE5465AA18EFF36800069BC4 /* Build configuration list for PBXNativeTarget "KTester" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DE5465AB18EFF36800069BC4 /* Debug */,
+				DE5465AC18EFF36800069BC4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DE5465AD18EFF36800069BC4 /* Build configuration list for PBXNativeTarget "KTesterTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DE5465AE18EFF36800069BC4 /* Debug */,
+				DE5465AF18EFF36800069BC4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DE54656D18EFF36700069BC4 /* Project object */;
+}

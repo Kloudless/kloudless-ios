@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DE54654018EF39BC00069BC4"
-               BuildableName = "KloudlessSDK.bundle"
-               BlueprintName = "KloudlessResources"
-               ReferencedContainer = "container:KloudlessSDK.xcodeproj">
+               BlueprintIdentifier = "DE54657418EFF36700069BC4"
+               BuildableName = "KTester.app"
+               BlueprintName = "KTester"
+               ReferencedContainer = "container:KTester.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -28,7 +28,26 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "DE54659818EFF36800069BC4"
+               BuildableName = "KTesterTests.xctest"
+               BlueprintName = "KTesterTests"
+               ReferencedContainer = "container:KTester.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "DE54657418EFF36700069BC4"
+            BuildableName = "KTester.app"
+            BlueprintName = "KTester"
+            ReferencedContainer = "container:KTester.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
@@ -39,6 +58,15 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
+      <BuildableProductRunnable>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "DE54657418EFF36700069BC4"
+            BuildableName = "KTester.app"
+            BlueprintName = "KTester"
+            ReferencedContainer = "container:KTester.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -48,6 +76,15 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
+      <BuildableProductRunnable>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "DE54657418EFF36700069BC4"
+            BuildableName = "KTester.app"
+            BlueprintName = "KTester"
+            ReferencedContainer = "container:KTester.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

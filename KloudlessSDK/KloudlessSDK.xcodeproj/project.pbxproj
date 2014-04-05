@@ -34,10 +34,14 @@
 		DE54652C18EF348700069BC4 /* KloudlessSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = DE54650A18EF33BC00069BC4 /* KloudlessSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DE54654318EF39BC00069BC4 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE54654218EF39BC00069BC4 /* CoreFoundation.framework */; };
 		DE54654918EF39BD00069BC4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DE54654718EF39BD00069BC4 /* InfoPlist.strings */; };
-		DE54656018EF525000069BC4 /* KClient.h in Headers */ = {isa = PBXBuildFile; fileRef = DE54655C18EF525000069BC4 /* KClient.h */; };
-		DE54656118EF525000069BC4 /* KClient.m in Sources */ = {isa = PBXBuildFile; fileRef = DE54655D18EF525000069BC4 /* KClient.m */; };
-		DE54656218EF525000069BC4 /* KRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = DE54655E18EF525000069BC4 /* KRequest.h */; };
-		DE54656318EF525000069BC4 /* KRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = DE54655F18EF525000069BC4 /* KRequest.m */; };
+		DE86B11518F0014F009E5466 /* KAuth.h in Headers */ = {isa = PBXBuildFile; fileRef = DE86B10D18F0014F009E5466 /* KAuth.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DE86B11618F0014F009E5466 /* KAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = DE86B10E18F0014F009E5466 /* KAuth.m */; };
+		DE86B11718F0014F009E5466 /* KAuthController.h in Headers */ = {isa = PBXBuildFile; fileRef = DE86B10F18F0014F009E5466 /* KAuthController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DE86B11818F0014F009E5466 /* KAuthController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE86B11018F0014F009E5466 /* KAuthController.m */; };
+		DE86B11918F0014F009E5466 /* KClient.h in Headers */ = {isa = PBXBuildFile; fileRef = DE86B11118F0014F009E5466 /* KClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DE86B11A18F0014F009E5466 /* KClient.m in Sources */ = {isa = PBXBuildFile; fileRef = DE86B11218F0014F009E5466 /* KClient.m */; };
+		DE86B11B18F0014F009E5466 /* KRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = DE86B11318F0014F009E5466 /* KRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DE86B11C18F0014F009E5466 /* KRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = DE86B11418F0014F009E5466 /* KRequest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,10 +96,14 @@
 		DE54654218EF39BC00069BC4 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		DE54654618EF39BC00069BC4 /* KloudlessResources-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KloudlessResources-Info.plist"; sourceTree = "<group>"; };
 		DE54654818EF39BD00069BC4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		DE54655C18EF525000069BC4 /* KClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KClient.h; sourceTree = "<group>"; };
-		DE54655D18EF525000069BC4 /* KClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KClient.m; sourceTree = "<group>"; };
-		DE54655E18EF525000069BC4 /* KRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KRequest.h; sourceTree = "<group>"; };
-		DE54655F18EF525000069BC4 /* KRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KRequest.m; sourceTree = "<group>"; };
+		DE86B10D18F0014F009E5466 /* KAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KAuth.h; sourceTree = "<group>"; };
+		DE86B10E18F0014F009E5466 /* KAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KAuth.m; sourceTree = "<group>"; };
+		DE86B10F18F0014F009E5466 /* KAuthController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KAuthController.h; sourceTree = "<group>"; };
+		DE86B11018F0014F009E5466 /* KAuthController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KAuthController.m; sourceTree = "<group>"; };
+		DE86B11118F0014F009E5466 /* KClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KClient.h; sourceTree = "<group>"; };
+		DE86B11218F0014F009E5466 /* KClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KClient.m; sourceTree = "<group>"; };
+		DE86B11318F0014F009E5466 /* KRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KRequest.h; sourceTree = "<group>"; };
+		DE86B11418F0014F009E5466 /* KRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KRequest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,10 +173,14 @@
 			isa = PBXGroup;
 			children = (
 				DE54650A18EF33BC00069BC4 /* KloudlessSDK.h */,
-				DE54655C18EF525000069BC4 /* KClient.h */,
-				DE54655D18EF525000069BC4 /* KClient.m */,
-				DE54655E18EF525000069BC4 /* KRequest.h */,
-				DE54655F18EF525000069BC4 /* KRequest.m */,
+				DE86B10D18F0014F009E5466 /* KAuth.h */,
+				DE86B10E18F0014F009E5466 /* KAuth.m */,
+				DE86B10F18F0014F009E5466 /* KAuthController.h */,
+				DE86B11018F0014F009E5466 /* KAuthController.m */,
+				DE86B11118F0014F009E5466 /* KClient.h */,
+				DE86B11218F0014F009E5466 /* KClient.m */,
+				DE86B11318F0014F009E5466 /* KRequest.h */,
+				DE86B11418F0014F009E5466 /* KRequest.m */,
 				DE54650818EF33BC00069BC4 /* Supporting Files */,
 			);
 			path = KloudlessSDK;
@@ -224,9 +236,11 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE54656218EF525000069BC4 /* KRequest.h in Headers */,
+				DE86B11518F0014F009E5466 /* KAuth.h in Headers */,
+				DE86B11718F0014F009E5466 /* KAuthController.h in Headers */,
+				DE86B11918F0014F009E5466 /* KClient.h in Headers */,
+				DE86B11B18F0014F009E5466 /* KRequest.h in Headers */,
 				DE54652C18EF348700069BC4 /* KloudlessSDK.h in Headers */,
-				DE54656018EF525000069BC4 /* KClient.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,8 +383,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE54656118EF525000069BC4 /* KClient.m in Sources */,
-				DE54656318EF525000069BC4 /* KRequest.m in Sources */,
+				DE86B11A18F0014F009E5466 /* KClient.m in Sources */,
+				DE86B11C18F0014F009E5466 /* KRequest.m in Sources */,
+				DE86B11618F0014F009E5466 /* KAuth.m in Sources */,
+				DE86B11818F0014F009E5466 /* KAuthController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -637,6 +653,7 @@
 				DE54652718EF33BC00069BC4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DE54652818EF33BC00069BC4 /* Build configuration list for PBXNativeTarget "KloudlessSDKTests" */ = {
 			isa = XCConfigurationList;
@@ -645,6 +662,7 @@
 				DE54652A18EF33BC00069BC4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DE54653718EF37D200069BC4 /* Build configuration list for PBXAggregateTarget "Framework" */ = {
 			isa = XCConfigurationList;
@@ -653,6 +671,7 @@
 				DE54653918EF37D200069BC4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DE54654B18EF39BD00069BC4 /* Build configuration list for PBXNativeTarget "KloudlessResources" */ = {
 			isa = XCConfigurationList;
@@ -661,6 +680,7 @@
 				DE54654D18EF39BD00069BC4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
