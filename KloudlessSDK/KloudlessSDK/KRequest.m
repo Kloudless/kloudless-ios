@@ -88,7 +88,7 @@ NSString *kDomain = @"kloudless.com";
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    NSLog(@"statusCode: %d", self.statusCode);
+    NSLog(@"statusCode: %ld", (long)self.statusCode);
 
     if (self.statusCode < 200 || self.statusCode > 299) {
         // Errors

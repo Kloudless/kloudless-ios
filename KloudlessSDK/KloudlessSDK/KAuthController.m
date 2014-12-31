@@ -203,7 +203,7 @@ extern id<KNetworkRequestDelegate> kNetworkRequestDelegate;
 
 - (void)loadRequest {
     NSURLRequest *urlRequest =
-    [[NSURLRequest alloc] initWithURL:self.url cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:20];
+    [[NSURLRequest alloc] initWithURL:self.url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:20];
     [self.webView loadRequest:urlRequest];
 }
 
