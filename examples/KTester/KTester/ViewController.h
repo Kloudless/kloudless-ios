@@ -49,4 +49,7 @@
 @property (nonatomic, weak) IBOutlet UIButton *createLink;
 @property (nonatomic, weak) IBOutlet UIButton *deleteLink;
 
+// Concurrent downloads
+@property (nonatomic, weak) IBOutlet UIButton *downloadAll;
+
 @end

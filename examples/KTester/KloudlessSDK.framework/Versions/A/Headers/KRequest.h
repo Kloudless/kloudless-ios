@@ -25,6 +25,7 @@
 + (void)setNetworkRequestDelegate:(id<KNetworkRequestDelegate>)delegate;
 - (id)initWithURLRequest:(NSURLRequest*)request andInformTarget:(id)target selector:(SEL)selector;
 - (void)cancel;
+- (NSInteger)statusCode;
 
 @property (nonatomic, readonly) NSError* error;
 @property (nonatomic, readonly) NSData* resultData;

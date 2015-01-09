@@ -3,7 +3,7 @@
 //  WebviewTest
 //
 //  Created by Timothy Liu on 4/3/14.
-//  Copyright (c) 2014 Kloudless, Inc. All rights reserved.
+//  Copyright (c) 2015 Kloudless, Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -25,6 +25,7 @@
 + (void)setNetworkRequestDelegate:(id<KNetworkRequestDelegate>)delegate;
 - (id)initWithURLRequest:(NSURLRequest*)request andInformTarget:(id)target selector:(SEL)selector;
 - (void)cancel;
+- (NSInteger)statusCode;
 
 @property (nonatomic, readonly) NSError* error;
 @property (nonatomic, readonly) NSData* resultData;

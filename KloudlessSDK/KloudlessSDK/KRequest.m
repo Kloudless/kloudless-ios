@@ -3,7 +3,7 @@
 //  WebviewTest
 //
 //  Created by Timothy Liu on 4/3/14.
-//  Copyright (c) 2014 Kloudless, Inc. All rights reserved.
+//  Copyright (c) 2015 Kloudless, Inc. All rights reserved.
 //
 
 #import "KRequest.h"
@@ -88,14 +88,10 @@ NSString *kDomain = @"kloudless.com";
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    NSLog(@"statusCode: %ld", (long)self.statusCode);
-
     if (self.statusCode < 200 || self.statusCode > 299) {
         // Errors
         NSMutableDictionary *errorUserInfo = [NSMutableDictionary new];
         NSString *resultString = [self resultString];
-        
-        NSLog(@"resultString: %@", resultString);
         
         if ([resultString length] > 0) {
           

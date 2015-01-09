@@ -21,7 +21,6 @@
      */
     NSString *appId = @"YOUR APP ID HERE";
     KAuth* auth = [[KAuth alloc] initWithAppId:appId];
-	auth.delegate = self; // KAuthDelegate methods allow you to handle re-authenticating
 	[KAuth setSharedAuth:auth];
 	[KRequest setNetworkRequestDelegate:self];
     
@@ -54,17 +53,6 @@
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
-
-#pragma mark -
-#pragma mark KAuthDelegate methods
-
-- (void)authDidReceiveAuthorizationFailure:(KAuth *)auth accountId:(NSString *)accountId {
-	[[[UIAlertView alloc]
-      initWithTitle:@"Kloudless Auth Ended" message:@"Do you want to relink?" delegate:self
-      cancelButtonTitle:@"Cancel" otherButtonTitles:@"Relink", nil]
-	 show];
-}
-
 
 #pragma mark -
 #pragma mark KNetworkRequestDelegate methods
