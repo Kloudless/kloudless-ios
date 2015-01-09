@@ -50,6 +50,9 @@
         _accountKey = accountKey;
         _accountId = accountId;
         _requests = [[NSMutableSet alloc] init];
+        _opQueue = [NSOperationQueue new];
+        _opConnections = 8;
+        [_opQueue setMaxConcurrentOperationCount:_opConnections];
     }
     return self;
 }
@@ -454,8 +457,21 @@
     KRequest* request =
     [[KRequest alloc] initWithURLRequest:urlRequest andInformTarget:self
                                 selector:@selector(requestDidDownloadFile:)];
-    
     [_requests addObject:request];
+
+}
+
+- (KDownloadOperation *)downloadFileOperation:(NSString *)fileId
+{
+    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/files/%@/contents", _accountId, fileId];
+    NSURLRequest* urlRequest =
+    [self requestWithHost:kAPIHost path:urlPath bodyParameters:nil];
+    
+    KDownloadOperation *operation = [[KDownloadOperation alloc] initWithURLRequest:urlRequest];
+    [operation addObserver:self forKeyPath:@"isFinished" options:NSKeyValueObservingOptionNew context:NULL];
+    [_opQueue addOperation:operation]; // operation starts as soon as its added
+
+    return operation;
 }
 
 - (void)requestDidDownloadFile:(KRequest *)request
@@ -1081,7 +1097,35 @@
 }
 
 - (void)checkForAuthenticationFailure:(KRequest *)request {
+    if (request.statusCode >= 400 || request.statusCode < 500) {
+        [delegate authDidReceiveAuthorizationFailure:[KAuth sharedAuth] accountId:_accountId];
+    }
+}
 
+#pragma mark -
+#pragma KVO Observing
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)operation change:(NSDictionary *)change context:(void *)context {
+    NSString *source = nil;
+    NSData *data = nil;
+    NSError *error = nil;
+    NSOutputStream *stream = nil;
+    KDownloadOperation *downloadOperation;
+    if ([operation isKindOfClass:[KDownloadOperation class]]) {
+        downloadOperation = (KDownloadOperation *)operation;
+        NSLog(@"Downloaded finished from %@", source);
+        data = [downloadOperation data];
+        error = [downloadOperation error];
+        stream = [downloadOperation stream];
+    }
+    if (error != nil) {
+        // handle error
+        // Notify that we have got an error downloading this data;
+        [delegate restClient:self operation:downloadOperation downloadErrored:error];
+        
+    } else {
+        // Notify that we have got this source data;
+        [delegate restClient:self operation:downloadOperation downloadedFileAtPath:[[operation fileURL] absoluteString]];
+    }
 }
 
 @synthesize delegate;

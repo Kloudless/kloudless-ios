@@ -41,9 +41,3 @@ extern NSString *kProtocolHTTPS;
 @property (nonatomic, retain) id<KAuthDelegate> delegate;
 
 @end
-
-@protocol KAuthDelegate
-
-- (void)authDidReceiveAuthorizationFailure:(KAuth *)auth accountId:(NSString *)accountId;
-
-@end

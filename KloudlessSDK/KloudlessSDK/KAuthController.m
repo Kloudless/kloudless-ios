@@ -42,6 +42,7 @@ extern id<KNetworkRequestDelegate> kNetworkRequestDelegate;
 @synthesize hasLoaded;
 @synthesize url;
 @synthesize webView;
+@synthesize delegate;
 
 - (id)initWithUrl:(NSURL *)connectUrl fromController:(UIViewController *)pRootController auth:(KAuth *)pAuth {
     if ((self = [super init])) {
@@ -128,10 +129,14 @@ extern id<KNetworkRequestDelegate> kNetworkRequestDelegate;
 
     NSString *accountId = [aWebView stringByEvaluatingJavaScriptFromString:@"document.getElementById('account').title"];
     NSString *accountKey = [aWebView stringByEvaluatingJavaScriptFromString:@"document.getElementById('account_key').title"];
-
+    NSMutableDictionary *accountData = [[NSMutableDictionary alloc] init];
+    [accountData setObject:accountId forKey:@"accountId"];
+    [accountData setObject:accountKey forKey:@"accountKey"];
+    
     if (![accountId isEqualToString:@""] && ![accountKey isEqualToString:@""]) {
         [[KAuth sharedAuth] setKey:accountKey forAccountId:accountId];
         [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+        [delegate authenticationSucceeded:accountData];
     }
 }
 
@@ -176,6 +181,8 @@ extern id<KNetworkRequestDelegate> kNetworkRequestDelegate;
     }
     
     [self.alertView show];
+    
+    [delegate authenticationFailedWithError:error];
 }
 
 - (BOOL)webView:(UIWebView *)aWebView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {

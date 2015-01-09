@@ -42,8 +42,7 @@ static KAuth *_sharedAuth = nil;
     if ((self = [super init])) {
         _appId = appId;
         _keysStore = [NSMutableDictionary new];
-        //TODO: load from default stores, keychain, etc.
-        [self saveCredentials];
+        [self loadCredentials];
     }
     return self;
 }
@@ -81,8 +80,18 @@ static KAuth *_sharedAuth = nil;
 
 #pragma mark private methods
 
+- (void)loadCredentials {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *defaultStore = [defaults objectForKey:@"KAuthStore"];
+    if (defaultStore && [defaultStore count] > 0) {
+        [_keysStore addEntriesFromDictionary:defaultStore];
+    }
+}
+
 - (void)saveCredentials {
-    // TODO: save
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:_keysStore forKey:@"KAuthStore"];
+    [defaults synchronize];
 }
 
 /**

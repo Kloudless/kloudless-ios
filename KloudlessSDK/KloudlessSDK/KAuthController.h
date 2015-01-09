@@ -9,8 +9,19 @@
 #import <UIKit/UIKit.h>
 #import "KAuth.h"
 
-@interface KAuthController : UIViewController
+@interface KAuthController : UIViewController {
+    id<KAuthDelegate> delegate;
+}
 
 - (id)initWithUrl:(NSURL *)connectUrl fromController:(UIViewController *)rootController auth:(KAuth *)auth;
+
+@property (nonatomic, retain) id<KAuthDelegate> delegate;
+
+@end
+
+@protocol KAuthDelegate
+
+- (void)authenticationFailedWithError:(NSError *)error;
+- (void)authenticationSucceeded:(NSDictionary *)data;
 
 @end
