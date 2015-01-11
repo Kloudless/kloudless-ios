@@ -17,12 +17,9 @@ extern NSString *kAPIVersion;
 
 extern NSString *kProtocolHTTPS;
 
-@protocol KAuthDelegate;
-
 @interface KAuth : NSObject {
     NSString *_appId;
     NSMutableDictionary *_keysStore;
-    id<KAuthDelegate> delegate;
 }
 
 - (void)authFromController:(UIViewController *)rootController andAuthUrl:(NSString *)authUrl;
@@ -38,12 +35,5 @@ extern NSString *kProtocolHTTPS;
 - (void)unlinkAll;
 
 @property (nonatomic, readonly) NSArray *accountIds;
-@property (nonatomic, retain) id<KAuthDelegate> delegate;
-
-@end
-
-@protocol KAuthDelegate
-
-- (void)authDidReceiveAuthorizationFailure:(KAuth *)auth accountId:(NSString *)accountId;
 
 @end

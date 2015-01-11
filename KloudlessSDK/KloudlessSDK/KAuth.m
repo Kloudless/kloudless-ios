@@ -3,7 +3,7 @@
 //  WebviewTest
 //
 //  Created by Timothy Liu on 4/4/14.
-//  Copyright (c) 2014 Kloudless, Inc. All rights reserved.
+//  Copyright (c) 2015 Kloudless, Inc. All rights reserved.
 //
 
 #import "KAuth.h"
@@ -42,13 +42,10 @@ static KAuth *_sharedAuth = nil;
     if ((self = [super init])) {
         _appId = appId;
         _keysStore = [NSMutableDictionary new];
-        //TODO: load from default stores, keychain, etc.
-        [self saveCredentials];
+        [self loadCredentials];
     }
     return self;
 }
-
-@synthesize delegate;
 
 - (void)setKey:(NSString *)key forAccountId:(NSString *)accountId
 {
@@ -81,8 +78,18 @@ static KAuth *_sharedAuth = nil;
 
 #pragma mark private methods
 
+- (void)loadCredentials {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *defaultStore = [defaults objectForKey:@"KAuthStore"];
+    if (defaultStore && [defaultStore count] > 0) {
+        [_keysStore addEntriesFromDictionary:defaultStore];
+    }
+}
+
 - (void)saveCredentials {
-    // TODO: save
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:_keysStore forKey:@"KAuthStore"];
+    [defaults synchronize];
 }
 
 /**

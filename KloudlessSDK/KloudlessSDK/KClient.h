@@ -3,11 +3,12 @@
 //  WebviewTest
 //
 //  Created by Timothy Liu on 4/3/14.
-//  Copyright (c) 2014 Kloudless, Inc. All rights reserved.
+//  Copyright (c) 2015 Kloudless, Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import "KRequest.h"
+#import "KDownloadOperation.h"
 
 @protocol KClientDelegate;
 // @protocol KAccountInfo;
@@ -19,6 +20,9 @@
     NSString *_accountKey;
     NSString *_accountId;
     NSMutableSet *_requests;
+    NSOperationQueue *_opQueue;
+    int _opConnections;
+    
     id<KClientDelegate> delegate;
 }
 
@@ -39,6 +43,8 @@
 // TODO: copyFile?
 - (void)deleteFile:(NSString *)fileId;
 - (void)getRecentFiles:(NSDictionary *)queryParams;
+- (KDownloadOperation *)downloadFileOperation:(NSString *)fileId;
+
 
 // Folder Methods
 - (void)getFolder:(NSString *)folderId;
@@ -137,5 +143,13 @@
 - (void)restClient:(KClient*)client deleteLinkFailedWithError:(NSError*)error;
 - (void)restClient:(KClient*)client deleteLinkLoaded:(NSDictionary *)response;
 
+// Download
+- (void)restClient:(KClient *)client operation:(KDownloadOperation *)operation downloadedFileAtPath:(NSString *)path;
+- (void)restClient:(KClient *)client operation:(KDownloadOperation *)operation downloadErrored:(NSError *)error;
+- (void)restClient:(KClient *)client operation:(KDownloadOperation *)operation didWriteData:(long long)bytesWritten
+ totalBytesWritten:(long long)totalBytesWritten expectedTotalBytes:(long long)expectedTotalBytes;
+
+// Authorization Failure
+- (void)authDidReceiveAuthorizationFailure:(KAuth *)auth accountId:(NSString *)accountId;
 
 @end

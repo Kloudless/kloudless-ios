@@ -23,6 +23,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		DE2D1E171A606F7B006487A2 /* KDownloadOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = DE2D1E151A606F7B006487A2 /* KDownloadOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DE2D1E181A606F7B006487A2 /* KDownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = DE2D1E161A606F7B006487A2 /* KDownloadOperation.m */; };
 		DE54650618EF33BB00069BC4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE54650518EF33BB00069BC4 /* Foundation.framework */; };
 		DE54650B18EF33BC00069BC4 /* KloudlessSDK.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = DE54650A18EF33BC00069BC4 /* KloudlessSDK.h */; };
 		DE54651418EF33BC00069BC4 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE54651318EF33BC00069BC4 /* XCTest.framework */; };
@@ -82,6 +84,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		DE2D1E151A606F7B006487A2 /* KDownloadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KDownloadOperation.h; sourceTree = "<group>"; };
+		DE2D1E161A606F7B006487A2 /* KDownloadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KDownloadOperation.m; sourceTree = "<group>"; };
 		DE54650218EF33BB00069BC4 /* libKloudlessSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libKloudlessSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE54650518EF33BB00069BC4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DE54650918EF33BC00069BC4 /* KloudlessSDK-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KloudlessSDK-Prefix.pch"; sourceTree = "<group>"; };
@@ -181,6 +185,8 @@
 				DE86B11218F0014F009E5466 /* KClient.m */,
 				DE86B11318F0014F009E5466 /* KRequest.h */,
 				DE86B11418F0014F009E5466 /* KRequest.m */,
+				DE2D1E151A606F7B006487A2 /* KDownloadOperation.h */,
+				DE2D1E161A606F7B006487A2 /* KDownloadOperation.m */,
 				DE54650818EF33BC00069BC4 /* Supporting Files */,
 			);
 			path = KloudlessSDK;
@@ -240,6 +246,7 @@
 				DE86B11718F0014F009E5466 /* KAuthController.h in Headers */,
 				DE86B11918F0014F009E5466 /* KClient.h in Headers */,
 				DE86B11B18F0014F009E5466 /* KRequest.h in Headers */,
+				DE2D1E171A606F7B006487A2 /* KDownloadOperation.h in Headers */,
 				DE54652C18EF348700069BC4 /* KloudlessSDK.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -384,6 +391,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE86B11A18F0014F009E5466 /* KClient.m in Sources */,
+				DE2D1E181A606F7B006487A2 /* KDownloadOperation.m in Sources */,
 				DE86B11C18F0014F009E5466 /* KRequest.m in Sources */,
 				DE86B11618F0014F009E5466 /* KAuth.m in Sources */,
 				DE86B11818F0014F009E5466 /* KAuthController.m in Sources */,

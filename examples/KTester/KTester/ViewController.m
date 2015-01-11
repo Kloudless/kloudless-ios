@@ -19,6 +19,7 @@
 @synthesize getFileInfo, updateFile, uploadFile, downloadFile, deleteFile;
 @synthesize getFolderInfo, updateFolder, createFolder, getFolderContents, deleteFolder;
 @synthesize listLinks, getLinkInfo, createLink, deleteLink;
+@synthesize downloadAll;
 
 @synthesize accountId, accountKey, client;
 
@@ -55,6 +56,8 @@
     [createLink addTarget:self action:@selector(testCreateLink:) forControlEvents:UIControlEventTouchUpInside];
     [deleteLink addTarget:self action:@selector(testDeleteLink:) forControlEvents:UIControlEventTouchUpInside];
 
+    // Concurrent Downloads
+    [downloadAll addTarget:self action:@selector(testDownloadAll:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 /**
@@ -72,7 +75,7 @@
         accountKey = [auth keyForAccountId:accountId];
         client = [[KClient alloc] initWithId:accountId
                                       andKey:accountKey];
-        client.delegate = self;
+        client.delegate = self; // KClientDelegate methods allow you to handle re-authenticating
     }
 }
 
@@ -304,6 +307,51 @@
 - (void)restClient:(KClient*)client deleteLinkLoaded:(NSDictionary *)response
 {
     NSLog(@"Response: %@", response);
+}
+
+- (void)testDownloadAll:(id)sender
+{
+    NSString *f1 = @"FIY-PKhHjiV6L1MaaHOO2CXIUoNdkPEUU32ZEnT0SYJg=";
+    NSString *f2 = @"FIY-PKhHjiV6L1MaaHOO2CXIUoNdkPEUU32ZEnT0SYJg=";
+    NSString *f3 = @"FIY-PKhHjiV6L1MaaHOO2CXIUoNdkPEUU32ZEnT0SYJg=";
+    NSString *f4 = @"FIY-PKhHjiV6L1MaaHOO2CXIUoNdkPEUU32ZEnT0SYJg=";
+    NSString *f5 = @"FIY-PKhHjiV6L1MaaHOO2CXIUoNdkPEUU32ZEnT0SYJg=";
+    NSString *f6 = @"FIY-PKhHjiV6L1MaaHOO2CXIUoNdkPEUU32ZEnT0SYJg=";
+
+    NSMutableArray *files = [[NSMutableArray alloc] init];
+    [files addObject:f1];
+    [files addObject:f2];
+    [files addObject:f3];
+    [files addObject:f4];
+    [files addObject:f5];
+    [files addObject:f6];
+
+    for (NSString *f in files) {
+        KDownloadOperation *op = [client downloadFileOperation:f];
+        if ([files indexOfObject:f] % 5 == 0) {
+//            [op cancel];
+        }
+    }
+}
+
+- (void)restClient:(KClient *)client operation:(KDownloadOperation *)operation downloadedFileAtPath:(NSString *)path
+{
+    NSLog(@"file at: %@", path);
+}
+
+- (void)restClient:(KClient *)client operation:(KDownloadOperation *)operation downloadErrored:(NSError *)error
+{
+    NSLog(@"error: %@", error);
+}
+
+#pragma mark -
+#pragma mark KAuthDelegate methods
+
+- (void)authDidReceiveAuthorizationFailure:(KAuth *)auth accountId:(NSString *)accountId {
+    [[[UIAlertView alloc]
+      initWithTitle:@"Kloudless Auth Ended" message:@"Do you want to relink?" delegate:self
+      cancelButtonTitle:@"Cancel" otherButtonTitles:@"Relink", nil]
+     show];
 }
 
 @end

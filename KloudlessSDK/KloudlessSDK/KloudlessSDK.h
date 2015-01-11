@@ -3,7 +3,7 @@
 //  KloudlessSDK
 //
 //  Created by Timothy Liu on 4/4/14.
-//  Copyright (c) 2014 Timothy Liu. All rights reserved.
+//  Copyright (c) 2015 Kloudless, Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -12,6 +12,7 @@
 #import <KloudlessSDK/KAuthController.h>
 #import <KloudlessSDK/KClient.h>
 #import <KloudlessSDK/KRequest.h>
+#import <KloudlessSDK/KDownloadOperation.h>
 
 @interface KloudlessSDK : NSObject
 

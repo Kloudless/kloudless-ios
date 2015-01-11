@@ -9,7 +9,7 @@
 #import <KloudlessSDK/KloudlessSDK.h>
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, KAuthDelegate, KNetworkRequestDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, KNetworkRequestDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
