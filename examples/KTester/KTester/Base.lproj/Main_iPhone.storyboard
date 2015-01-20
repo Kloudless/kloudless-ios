@@ -155,6 +155,12 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8fy-fA-mSK">
+                                <rect key="frame" x="17" y="466" width="287" height="28"/>
+                                <state key="normal" title="Unlink All Auth">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -175,6 +181,7 @@
                         <outlet property="linkKloudless" destination="UvR-rZ-n9H" id="Qe9-8c-RFU"/>
                         <outlet property="listAccounts" destination="Vhd-oH-khO" id="uJe-9k-GFD"/>
                         <outlet property="listLinks" destination="d3B-KI-Idh" id="esi-Ec-pr6"/>
+                        <outlet property="unlinkAll" destination="8fy-fA-mSK" id="Q17-dp-gbe"/>
                         <outlet property="updateFile" destination="x0b-wy-P2y" id="DUV-MA-wnW"/>
                         <outlet property="updateFolder" destination="boo-39-tsq" id="NIp-y4-Xs8"/>
                         <outlet property="uploadFile" destination="X0c-If-KXB" id="a0E-xE-QcK"/>

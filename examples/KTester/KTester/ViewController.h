@@ -21,6 +21,7 @@
 
 // authentication
 @property (nonatomic, weak) IBOutlet UIButton *linkKloudless;
+@property (nonatomic, weak) IBOutlet UIButton *unlinkAll;
 
 // accounts
 @property (nonatomic, weak) IBOutlet UIButton *listAccounts;

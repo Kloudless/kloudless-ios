@@ -19,7 +19,7 @@
 @synthesize getFileInfo, updateFile, uploadFile, downloadFile, deleteFile;
 @synthesize getFolderInfo, updateFolder, createFolder, getFolderContents, deleteFolder;
 @synthesize listLinks, getLinkInfo, createLink, deleteLink;
-@synthesize downloadAll;
+@synthesize downloadAll, unlinkAll;
 
 @synthesize accountId, accountKey, client;
 
@@ -30,6 +30,7 @@
 
     // Auth
     [linkKloudless addTarget:self action:@selector(didPressLink:) forControlEvents:UIControlEventTouchUpInside];
+    [unlinkAll addTarget:self action:@selector(didPressUnlink:) forControlEvents:UIControlEventTouchUpInside];
     
     // Accounts
     [listAccounts addTarget:self action:@selector(testListAccounts:) forControlEvents:UIControlEventTouchUpInside];
@@ -103,6 +104,10 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)didPressUnlink:(id)sender {
+    [[KAuth sharedAuth] unlinkAll];
 }
 
 #pragma -mark custom account instance methods

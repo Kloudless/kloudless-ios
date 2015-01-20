@@ -20,6 +20,7 @@ extern NSString *kProtocolHTTPS;
 @interface KAuth : NSObject {
     NSString *_appId;
     NSMutableDictionary *_keysStore;
+    NSMutableDictionary *_keychainItem;
 }
 
 - (void)authFromController:(UIViewController *)rootController andAuthUrl:(NSString *)authUrl;
@@ -34,6 +35,8 @@ extern NSString *kProtocolHTTPS;
 
 - (void)unlinkAll;
 
+@property (strong, nonatomic) NSMutableDictionary * keychainItem;
 @property (nonatomic, readonly) NSArray *accountIds;
+@property (nonatomic, readonly) BOOL secure;
 
 @end

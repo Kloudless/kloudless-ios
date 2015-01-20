@@ -8,6 +8,7 @@
 
 #import "KAuth.h"
 #import "KAuthController.h"
+#import <Security/Security.h>
 
 NSString *kSDKVersion = @"0.0.1"; // TODO: parameterize from build system
 
@@ -18,6 +19,8 @@ NSString *kAPIVersion = @"0";
 NSString *kProtocolHTTPS = @"https";
 
 static KAuth *_sharedAuth = nil;
+static BOOL _secure = true;
+static NSString *_server = @"kldl.es";
 
 @interface KAuth ()
 
@@ -28,6 +31,9 @@ static KAuth *_sharedAuth = nil;
 
 @implementation KAuth
 
+@synthesize secure = _secure;
+@synthesize keychainItem = _keychainItem;
+
 + (KAuth *)sharedAuth {
     return _sharedAuth;
 }
@@ -35,6 +41,10 @@ static KAuth *_sharedAuth = nil;
 + (void)setSharedAuth:(KAuth *) auth {
     if (auth == _sharedAuth) return;
     _sharedAuth = auth;
+}
+
++ (void)setSecure:(BOOL) secure {
+    _secure = secure;
 }
 
 - (id)initWithAppId:(NSString *)appId
@@ -50,6 +60,7 @@ static KAuth *_sharedAuth = nil;
 - (void)setKey:(NSString *)key forAccountId:(NSString *)accountId
 {
     [_keysStore setObject:key forKey:accountId];
+    [self saveCredentials];
 }
 
 - (BOOL)isLinked {
@@ -58,6 +69,7 @@ static KAuth *_sharedAuth = nil;
 
 - (void)unlinkAll {
     [_keysStore removeAllObjects];
+    [self saveCredentials];
 }
 
 - (void)unlinkAccountId:(NSString *)accountId {
@@ -78,18 +90,75 @@ static KAuth *_sharedAuth = nil;
 
 #pragma mark private methods
 
+- (void)createEmptyKeychainItem{
+
+    //Let's create an empty mutable dictionary:
+    _keychainItem = [NSMutableDictionary dictionary];
+
+    //Populate it with the data and the attributes we want to use.
+
+    _keychainItem[(__bridge id)kSecClass] = (__bridge id)kSecClassInternetPassword; // We specify what kind of keychain item this is.
+    _keychainItem[(__bridge id)kSecAttrAccessible] = (__bridge id)kSecAttrAccessibleWhenUnlocked; // This item can only be accessed when the user unlocks the device.
+
+    _keychainItem[(__bridge id)kSecAttrServer] = _server;
+    _keychainItem[(__bridge id)kSecAttrAccount] = _appId;
+
+    _keychainItem[(__bridge id)kSecReturnData] = (__bridge id)kCFBooleanTrue;
+    _keychainItem[(__bridge id)kSecReturnAttributes] = (__bridge id)kCFBooleanTrue;
+}
+
+
 - (void)loadCredentials {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSDictionary *defaultStore = [defaults objectForKey:@"KAuthStore"];
-    if (defaultStore && [defaultStore count] > 0) {
-        [_keysStore addEntriesFromDictionary:defaultStore];
+    if (_secure) {
+
+        [self createEmptyKeychainItem];
+
+        CFDictionaryRef result = nil;
+        OSStatus sts = SecItemCopyMatching((__bridge CFDictionaryRef)_keychainItem, (CFTypeRef *)&result);
+        NSLog(@"Error Code: %d", (int)sts);
+
+        if (sts == noErr) {
+            NSDictionary *resultDict = (__bridge_transfer NSDictionary *)result;
+            NSData *keysData = resultDict[(__bridge id)kSecValueData];
+            [_keysStore addEntriesFromDictionary:(NSDictionary *)[NSKeyedUnarchiver unarchiveObjectWithData:keysData]];
+        }
+    } else {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSDictionary *defaultStore = [defaults objectForKey:@"KAuthStore"];
+        if (defaultStore && [defaultStore count] > 0) {
+            [_keysStore addEntriesFromDictionary:defaultStore];
+        }
     }
 }
 
 - (void)saveCredentials {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:_keysStore forKey:@"KAuthStore"];
-    [defaults synchronize];
+    if (_secure) {
+
+        [self createEmptyKeychainItem];
+
+        NSData *keysData = [NSKeyedArchiver archivedDataWithRootObject:_keysStore];
+
+        //Check if this keychain item already exists.
+        if(SecItemCopyMatching((__bridge CFDictionaryRef)_keychainItem, NULL) == noErr) {
+            NSMutableDictionary *attributesToUpdate = [NSMutableDictionary dictionary];
+            attributesToUpdate[(__bridge id)kSecValueData] = keysData;
+
+            _keychainItem[(__bridge id)kSecReturnData] = (__bridge id)kCFBooleanFalse;
+            _keychainItem[(__bridge id)kSecReturnAttributes] = (__bridge id)kCFBooleanFalse;
+
+            OSStatus sts = SecItemUpdate((__bridge CFDictionaryRef)_keychainItem, (__bridge CFDictionaryRef)attributesToUpdate);
+            NSLog(@"Error Code: %d", (int)sts);
+        } else {
+            _keychainItem[(__bridge id)kSecValueData] = keysData;
+
+            OSStatus sts = SecItemAdd((__bridge CFDictionaryRef)_keychainItem, NULL);
+            NSLog(@"Error Code: %d", (int)sts);
+        }
+    } else {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:_keysStore forKey:@"KAuthStore"];
+        [defaults synchronize];
+    }
 }
 
 /**
