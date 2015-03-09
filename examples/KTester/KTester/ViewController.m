@@ -177,7 +177,7 @@
     [client uploadFileData:metadata andData:fileData queryParameters:nil];
 }
 
-- (void)restClient:(KClient*)client uploadFileLoaded:(NSDictionary *)fileInfo
+- (void)restClient:(KClient*)client uploadFileDataLoaded:(NSDictionary *)fileInfo
 {
     NSLog(@"File Info: %@", fileInfo);
 }
