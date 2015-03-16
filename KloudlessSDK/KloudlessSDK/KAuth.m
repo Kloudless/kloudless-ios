@@ -178,14 +178,44 @@ static NSString *_server = @"kldl.es";
  @returns
  @exception <#throws#>
  */
+- (void)authFromController:(UIViewController *)rootController
+{
+    [self authFromController:rootController andAuthUrl:nil];
+}
+
 - (void)authFromController:(UIViewController *)rootController andAuthUrl:(NSString *)authUrl
 {
+    [self authFromController:rootController andAuthUrl:authUrl andAuthParams:nil];
+}
+
+- (void)authFromController:(UIViewController *)rootController andAuthUrl:(NSString *)authUrl andAuthParams:(NSDictionary *)params
+{
     NSString *appId = _appId;
+    // initializing authURL
     if (!authUrl || [authUrl isEqualToString:@""]) {
         authUrl = [NSString stringWithFormat:@"%@://%@/services/?app_id=%@&referrer=mobile&retrieve_account_key=true",
            kProtocolHTTPS, kAPIHost, appId];
     }
+
+    // adding query params
+    if (params) {
+        NSMutableString *queryString = [NSMutableString string];
+        // doesn't have query parameters
+        if ([authUrl rangeOfString:@"?"].length == 0) {
+            [queryString appendString:@"?"];
+        } else {
+            [queryString appendString:@"&"];
+        }
+        NSMutableArray *queryComponents = [NSMutableArray array];
+        for (NSString *key in params) {
+            [queryComponents addObject:[NSString stringWithFormat:@"%@=%@", [key stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], [[params objectForKey:key] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
+        }
+        [queryString appendString:[queryComponents componentsJoinedByString:@"&"]];
+        authUrl = [NSString stringWithFormat:@"%@%@", authUrl, queryString];
+    }
+
     NSLog(@"Auth URL: %@", authUrl);
+
     UIViewController *connectController = [[KAuthController alloc] initWithUrl:[NSURL URLWithString:authUrl] fromController:rootController auth:self];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:connectController];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {

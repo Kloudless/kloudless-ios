@@ -23,7 +23,9 @@ extern NSString *kProtocolHTTPS;
     NSMutableDictionary *_keychainItem;
 }
 
+- (void)authFromController:(UIViewController *)rootController;
 - (void)authFromController:(UIViewController *)rootController andAuthUrl:(NSString *)authUrl;
+- (void)authFromController:(UIViewController *)rootController andAuthUrl:(NSString *)authUrl andAuthParams:(NSDictionary *)params;
 
 + (KAuth *)sharedAuth;
 + (void)setSharedAuth:(KAuth *)auth;
