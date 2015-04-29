@@ -178,7 +178,7 @@ static NSString *_server = @"kldl.es";
  @returns
  @exception <#throws#>
  */
-- (void)authFromController:(UIViewController *)rootController andAuthUrl:(NSString *)authUrl
+- (KAuthController *) authFromController:(UIViewController *)rootController andAuthUrl:(NSString *)authUrl
 {
     NSString *appId = _appId;
     if (!authUrl || [authUrl isEqualToString:@""]) {
@@ -186,7 +186,7 @@ static NSString *_server = @"kldl.es";
            kProtocolHTTPS, kAPIHost, appId];
     }
     NSLog(@"Auth URL: %@", authUrl);
-    UIViewController *connectController = [[KAuthController alloc] initWithUrl:[NSURL URLWithString:authUrl] fromController:rootController auth:self];
+    KAuthController *connectController = [[KAuthController alloc] initWithUrl:[NSURL URLWithString:authUrl] fromController:rootController auth:self];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:connectController];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         connectController.modalPresentationStyle = UIModalPresentationFormSheet;
@@ -194,6 +194,7 @@ static NSString *_server = @"kldl.es";
     }
     
     [rootController presentViewController:navController animated:YES completion:nil];
+    return connectController;
 }
 
 @end
