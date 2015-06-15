@@ -987,6 +987,40 @@
 }
 
 
+/**
+ Search the files in the account(s).
+ @param NSString query the query string
+ */
+- (void)search:(NSString *)query {
+    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/search/", _accountId];
+    NSDictionary *queryParams = @{@"q": query};
+    NSURLRequest* urlRequest =
+    [self requestWithHost:kAPIHost path:urlPath bodyParameters:nil method:@"GET" queryParameters:queryParams];
+    
+    KRequest* request =
+    [[KRequest alloc] initWithURLRequest:urlRequest andInformTarget:self
+                                selector:@selector(requestDidQuery:)];
+    
+    [_requests addObject:request];
+}
+
+- (void)requestDidQuery:(KRequest *)request
+{
+    if (request.error) {
+        [self checkForAuthenticationFailure:request];
+        if ([delegate respondsToSelector:@selector(restClient:searchFailedWithError:)]) {
+            [delegate restClient:self searchFailedWithError:request.error];
+        }
+    } else {
+        NSDictionary *queryResult = (NSDictionary *)[request resultJSON];
+        if ([delegate respondsToSelector:@selector(restClient:searchLoaded:)]) {
+            [delegate restClient:self searchLoaded:queryResult];
+        }
+    }
+    
+    [_requests removeObject:request];
+}
+
 #pragma mark private methods
 
 + (NSString*)escapePath:(NSString*)path {
