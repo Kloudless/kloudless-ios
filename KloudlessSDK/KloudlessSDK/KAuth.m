@@ -167,28 +167,28 @@ static NSString *_server = @"kldl.es";
  @param authUrl the specific authentication endpoint
      Default:
      NSString *authUrl = @"https://api.kloudless.com/services/?app_id=%@&referrer=mobile&retrieve_account_key=true"
-     
+
      Authenticate a set of services:
      NSString *authUrl = @"https://api.kloudless.com/services/?app_id=%@&referrer=mobile&retrieve_account_key=true&services=box,dropbox"
-     
+
      Skip the user selecting and authenticate a specific service:
      NSString *authUrl = @"https://api.kloudless.com/services/dropbox?app_id=%@&referrer=mobile&retrieve_account_key=true"
-     
+
      Note: Both retrieve_account_key and mobile need to be set to true and mobile respectively to retrieve authentication credentials.
  @returns
  @exception <#throws#>
  */
-- (void)authFromController:(UIViewController *)rootController
+- (KAuthController *)authFromController:(UIViewController *)rootController
 {
-    [self authFromController:rootController andAuthUrl:nil];
+    return [self authFromController:rootController andAuthUrl:nil];
 }
 
-- (void)authFromController:(UIViewController *)rootController andAuthUrl:(NSString *)authUrl
+- (KAuthController *)authFromController:(UIViewController *)rootController andAuthUrl:(NSString *)authUrl
 {
-    [self authFromController:rootController andAuthUrl:authUrl andAuthParams:nil];
+    return [self authFromController:rootController andAuthUrl:authUrl andAuthParams:nil];
 }
 
-- (void)authFromController:(UIViewController *)rootController andAuthUrl:(NSString *)authUrl andAuthParams:(NSDictionary *)params
+- (KAuthController *)authFromController:(UIViewController *)rootController andAuthUrl:(NSString *)authUrl andAuthParams:(NSDictionary *)params
 {
     NSString *appId = _appId;
     // initializing authURL
@@ -215,15 +215,15 @@ static NSString *_server = @"kldl.es";
     }
 
     NSLog(@"Auth URL: %@", authUrl);
-
-    UIViewController *connectController = [[KAuthController alloc] initWithUrl:[NSURL URLWithString:authUrl] fromController:rootController auth:self];
+    KAuthController *connectController = [[KAuthController alloc] initWithUrl:[NSURL URLWithString:authUrl] fromController:rootController auth:self];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:connectController];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         connectController.modalPresentationStyle = UIModalPresentationFormSheet;
         navController.modalPresentationStyle = UIModalPresentationFormSheet;
     }
-    
+
     [rootController presentViewController:navController animated:YES completion:nil];
+    return connectController;
 }
 
 @end

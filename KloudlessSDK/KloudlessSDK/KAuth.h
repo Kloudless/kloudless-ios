@@ -17,15 +17,17 @@ extern NSString *kAPIVersion;
 
 extern NSString *kProtocolHTTPS;
 
+@class KAuthController;
+
 @interface KAuth : NSObject {
     NSString *_appId;
     NSMutableDictionary *_keysStore;
     NSMutableDictionary *_keychainItem;
 }
 
-- (void)authFromController:(UIViewController *)rootController;
-- (void)authFromController:(UIViewController *)rootController andAuthUrl:(NSString *)authUrl;
-- (void)authFromController:(UIViewController *)rootController andAuthUrl:(NSString *)authUrl andAuthParams:(NSDictionary *)params;
+- (KAuthController *)authFromController:(UIViewController *)rootController;
+- (KAuthController *)authFromController:(UIViewController *)rootController andAuthUrl:(NSString *)authUrl;
+- (KAuthController *)authFromController:(UIViewController *)rootController andAuthUrl:(NSString *)authUrl andAuthParams:(NSDictionary *)params;
 
 + (KAuth *)sharedAuth;
 + (void)setSharedAuth:(KAuth *)auth;

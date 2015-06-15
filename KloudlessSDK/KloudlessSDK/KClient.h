@@ -61,6 +61,9 @@
 - (void)createLink:(NSDictionary *)bodyParams;
 - (void)deleteLink:(NSString *)linkId;
 
+// Query Methods
+- (void)search: (NSString *)query;
+
 @property (nonatomic, retain) id<KClientDelegate> delegate;
 
 @end
@@ -148,6 +151,10 @@
 - (void)restClient:(KClient *)client operation:(KDownloadOperation *)operation downloadErrored:(NSError *)error;
 - (void)restClient:(KClient *)client operation:(KDownloadOperation *)operation didWriteData:(long long)bytesWritten
  totalBytesWritten:(long long)totalBytesWritten expectedTotalBytes:(long long)expectedTotalBytes;
+
+// Query
+- (void)restClient:(KClient*)client searchFailedWithError:(NSError*)error;
+- (void)restClient:(KClient*)client searchLoaded:(NSDictionary *)response;
 
 // Authorization Failure
 - (void)authDidReceiveAuthorizationFailure:(KAuth *)auth accountId:(NSString *)accountId;

@@ -50,7 +50,7 @@ extern id<KNetworkRequestDelegate> kNetworkRequestDelegate;
         self.rootController = pRootController;
         self.auth = pAuth;
         
-        self.title = @"Kloudless";
+        self.title = @"Link Storage";
         self.navigationItem.rightBarButtonItem =
         [[UIBarButtonItem alloc]
           initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel)];
