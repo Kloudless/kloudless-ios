@@ -49,12 +49,12 @@ extern id<KNetworkRequestDelegate> kNetworkRequestDelegate;
         self.url = connectUrl;
         self.rootController = pRootController;
         self.auth = pAuth;
-        
-        self.title = @"Link Storage";
+
+        self.title = @"Kloudless";
         self.navigationItem.rightBarButtonItem =
         [[UIBarButtonItem alloc]
           initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel)];
-        
+
 #ifdef __IPHONE_7_0 // Temporary until we can switch to XCode 5 for release.
         if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) {
             self.edgesForExtendedLayout = UIRectEdgeNone;
@@ -70,7 +70,7 @@ extern id<KNetworkRequestDelegate> kNetworkRequestDelegate;
     // Do any additional setup after loading the view.
 
     self.view.backgroundColor = [UIColor colorWithRed:241.0/255 green:249.0/255 blue:255.0/255 alpha:1.0];
-    
+
     UIActivityIndicatorView *activityIndicator =
     [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     activityIndicator.autoresizingMask =
@@ -82,7 +82,7 @@ extern id<KNetworkRequestDelegate> kNetworkRequestDelegate;
     activityIndicator.frame = frame;
     [activityIndicator startAnimating];
     [self.view addSubview:activityIndicator];
-    
+
     self.webView = [[UIWebView alloc] initWithFrame:self.view.frame];
     self.webView.delegate = self;
     self.webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -90,7 +90,7 @@ extern id<KNetworkRequestDelegate> kNetworkRequestDelegate;
     self.webView.hidden = YES;
     self.webView.dataDetectorTypes = UIDataDetectorTypeNone;
     [self.view addSubview:self.webView];
-    
+
     [self loadRequest];
 }
 
@@ -115,15 +115,15 @@ extern id<KNetworkRequestDelegate> kNetworkRequestDelegate;
     [aWebView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitTouchCallout = \"none\";"]; // Disable touch-and-hold action sheet
     [aWebView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitUserSelect = \"none\";"]; // Disable text selection
     webView.frame = self.view.bounds;
-    
+
     CATransition* transition = [CATransition animation];
     transition.duration = 0.25;
     transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
     transition.type = kCATransitionFade;
     [self.view.layer addAnimation:transition forKey:nil];
-    
+
     webView.hidden = NO;
-    
+
     hasLoaded = YES;
     [kNetworkRequestDelegate networkRequestStopped];
 
@@ -132,7 +132,7 @@ extern id<KNetworkRequestDelegate> kNetworkRequestDelegate;
     NSMutableDictionary *accountData = [[NSMutableDictionary alloc] init];
     [accountData setObject:accountId forKey:@"accountId"];
     [accountData setObject:accountKey forKey:@"accountKey"];
-    
+
     if (![accountId isEqualToString:@""] && ![accountKey isEqualToString:@""]) {
         [[KAuth sharedAuth] setKey:accountKey forAccountId:accountId];
         [self.navigationController dismissViewControllerAnimated:YES completion:nil];
@@ -142,15 +142,15 @@ extern id<KNetworkRequestDelegate> kNetworkRequestDelegate;
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     [kNetworkRequestDelegate networkRequestStopped];
-    
+
     // ignore "Fame Load Interrupted" errors and cancels
     if (error.code == 102 && [error.domain isEqual:@"WebKitErrorDomain"]) return;
     if (error.code == NSURLErrorCancelled && [error.domain isEqual:NSURLErrorDomain]) return;
-    
-    
+
+
     NSString *title = @"";
     NSString *message = @"";
-    
+
     if ([error.domain isEqual:NSURLErrorDomain] && error.code == NSURLErrorNotConnectedToInternet) {
         title = NSLocalizedString(@"No internet connection", @"");
         message = NSLocalizedString(@"Try again once you have an internet connection.", @"");
@@ -162,26 +162,26 @@ extern id<KNetworkRequestDelegate> kNetworkRequestDelegate;
         title = NSLocalizedString(@"Unknown Error Occurred", @"");
         message = NSLocalizedString(@"There was an error loading Kloudless. Please try again.", @"");
     }
-    
+
     if (self.hasLoaded) {
         // If it has loaded, it means it's a form submit, so users can cancel/retry on their own
         NSString *okStr = NSLocalizedString(@"OK", nil);
-        
+
         self.alertView =
         [[UIAlertView alloc]
           initWithTitle:title message:message delegate:nil cancelButtonTitle:okStr otherButtonTitles:nil];
     } else {
         // if the page hasn't loaded, this alert gives the user a way to retry
         NSString *retryStr = NSLocalizedString(@"Retry", @"Retry loading a page that has failed to load");
-        
+
         self.alertView =
         [[UIAlertView alloc]
           initWithTitle:title message:message delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"")
           otherButtonTitles:retryStr, nil];
     }
-    
+
     [self.alertView show];
-    
+
     [delegate authenticationFailedWithError:error];
 }
 
@@ -202,7 +202,7 @@ extern id<KNetworkRequestDelegate> kNetworkRequestDelegate;
             [self cancel];
         }
     }
-    
+
     self.alertView = nil;
 }
 
