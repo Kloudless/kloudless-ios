@@ -17,7 +17,7 @@
 @interface KClient : NSObject {
     // TODO: move _key to a "session" object to store multiple account keys
     // or at least an account key container
-    NSString *_accountKey;
+    NSString *_token;
     NSString *_accountId;
     NSMutableSet *_requests;
     NSOperationQueue *_opQueue;
@@ -26,7 +26,7 @@
     id<KClientDelegate> delegate;
 }
 
-- (id)initWithId:(NSString *)accountId andKey:(NSString *)accountKey;
+- (id)initWithId:(NSString *)accountId andToken:(NSString *)token;
 
 // Account Methods
 - (void)listAccounts:(NSDictionary *)queryParams;

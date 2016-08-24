@@ -193,8 +193,8 @@ static NSString *_server = @"kldl.es";
     NSString *appId = _appId;
     // initializing authURL
     if (!authUrl || [authUrl isEqualToString:@""]) {
-        authUrl = [NSString stringWithFormat:@"%@://%@/services/?app_id=%@&referrer=mobile&retrieve_account_key=true",
-           kProtocolHTTPS, kAPIHost, appId];
+        authUrl = [NSString stringWithFormat:@"%@://%@/v%@/services/?app_id=%@&referrer=mobile&retrieve_account_key=true",
+           kProtocolHTTPS, kAPIVersion, kAPIHost, appId];
     }
 
     // adding query params

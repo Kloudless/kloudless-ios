@@ -97,6 +97,11 @@
  
  */
 - (void)didPressLink:(id)sender {
+    NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    for (NSHTTPCookie *cookie in [storage cookies]) {
+        [storage deleteCookie:cookie];
+    }
+    [[NSUserDefaults standardUserDefaults] synchronize];
     [[KAuth sharedAuth] authFromController:self andAuthUrl:nil];
 }
 

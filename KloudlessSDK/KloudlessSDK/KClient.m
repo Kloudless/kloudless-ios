@@ -40,14 +40,14 @@
  @returns Kloudless Client
  @exception
  */
-- (id)initWithId:(NSString *)accountId andKey:(NSString *)accountKey
+- (id)initWithId:(NSString *)accountId andToken:(NSString *)token
 {
-    if (!accountKey || !accountId) {
+    if (!token || !accountId) {
         return nil;
     }
     
     if ((self = [super init])) {
-        _accountKey = accountKey;
+        _token = token;
         _accountId = accountId;
         _requests = [[NSMutableSet alloc] init];
         _opQueue = [NSOperationQueue new];
@@ -1076,7 +1076,7 @@
     NSLog(@"urlString: %@", urlString);
 
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
-    NSString *authorization = [NSString stringWithFormat:@"AccountKey %@", _accountKey];
+    NSString *authorization = [NSString stringWithFormat:@"Bearer %@", _token];
     
     if (method) {
         [urlRequest setHTTPMethod:method];
