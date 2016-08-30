@@ -17,7 +17,7 @@
 @interface KClient : NSObject {
     // TODO: move _key to a "session" object to store multiple account keys
     // or at least an account key container
-    NSString *_accountKey;
+    NSString *_token;
     NSString *_accountId;
     NSMutableSet *_requests;
     NSOperationQueue *_opQueue;
@@ -26,7 +26,8 @@
     id<KClientDelegate> delegate;
 }
 
-- (id)initWithId:(NSString *)accountId andKey:(NSString *)accountKey;
+- (id)initWithId:(NSString *)accountId andToken:(NSString *)token;
+- (NSString*)verifyToken:(NSString *)token;
 
 // Account Methods
 - (void)listAccounts:(NSDictionary *)queryParams;
@@ -60,6 +61,9 @@
 - (void)updateLink:(NSString *)linkId bodyParameters:(NSDictionary *)bodyParams;
 - (void)createLink:(NSDictionary *)bodyParams;
 - (void)deleteLink:(NSString *)linkId;
+
+// Query Methods
+- (void)search: (NSString *)query;
 
 @property (nonatomic, retain) id<KClientDelegate> delegate;
 
@@ -148,6 +152,10 @@
 - (void)restClient:(KClient *)client operation:(KDownloadOperation *)operation downloadErrored:(NSError *)error;
 - (void)restClient:(KClient *)client operation:(KDownloadOperation *)operation didWriteData:(long long)bytesWritten
  totalBytesWritten:(long long)totalBytesWritten expectedTotalBytes:(long long)expectedTotalBytes;
+
+// Query
+- (void)restClient:(KClient*)client searchFailedWithError:(NSError*)error;
+- (void)restClient:(KClient*)client searchLoaded:(NSDictionary *)response;
 
 // Authorization Failure
 - (void)authDidReceiveAuthorizationFailure:(KAuth *)auth accountId:(NSString *)accountId;

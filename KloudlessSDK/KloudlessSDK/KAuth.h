@@ -34,8 +34,8 @@ extern NSString *kProtocolHTTPS;
 
 - (id)initWithAppId:(NSString *)appId;
 - (BOOL)isLinked; // Auth must be linked before creating any KClient objects
-- (void)setKey:(NSString *)key forAccountId:(NSString *)accountId;
-- (NSString *)keyForAccountId:(NSString *)accountId;
+- (void)setToken:(NSString *)token forAccountId:(NSString *)accountId;
+- (NSString *)tokenForAccountId:(NSString *)accountId;
 
 - (void)unlinkAll;
 

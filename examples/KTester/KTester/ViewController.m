@@ -21,7 +21,7 @@
 @synthesize listLinks, getLinkInfo, createLink, deleteLink;
 @synthesize downloadAll, unlinkAll;
 
-@synthesize accountId, accountKey, client;
+@synthesize accountId, token, client;
 
 - (void)viewDidLoad
 {
@@ -70,12 +70,11 @@
     [super viewDidAppear:animated];
     
     KAuth *auth = [KAuth sharedAuth];
-    
     if ([auth isLinked]) {
         accountId = [[auth accountIds] objectAtIndex:0];
-        accountKey = [auth keyForAccountId:accountId];
+        token = [auth tokenForAccountId:accountId];
         client = [[KClient alloc] initWithId:accountId
-                                      andKey:accountKey];
+                                      andToken:token];
         client.delegate = self; // KClientDelegate methods allow you to handle re-authenticating
     }
 }

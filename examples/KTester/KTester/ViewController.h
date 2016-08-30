@@ -11,12 +11,12 @@
 
 @interface ViewController : UIViewController <UIWebViewDelegate, KClientDelegate> {
     NSString *accountId;
-    NSString *accountKey;
+    NSString *token;
     
     KClient *client;
 }
 @property (nonatomic, retain) NSString *accountId;
-@property (nonatomic, retain) NSString *accountKey;
+@property (nonatomic, retain) NSString *token;
 @property (nonatomic, retain) KClient *client;
 
 // authentication

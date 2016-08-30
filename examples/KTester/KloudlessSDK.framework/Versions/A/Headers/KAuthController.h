@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "KAuth.h"
+#import "KClient.h"
 
 @protocol KAuthDelegate;
 

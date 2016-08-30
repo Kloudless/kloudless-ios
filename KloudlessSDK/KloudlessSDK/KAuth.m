@@ -10,11 +10,11 @@
 #import "KAuthController.h"
 #import <Security/Security.h>
 
-NSString *kSDKVersion = @"0.0.1"; // TODO: parameterize from build system
+NSString *kSDKVersion = @"1.0.0"; // TODO: parameterize from build system
 
 NSString *kAPIHost = @"api.kloudless.com";
 NSString *kWebHost = @"www.kloudless.com";
-NSString *kAPIVersion = @"0";
+NSString *kAPIVersion = @"1";
 
 NSString *kProtocolHTTPS = @"https";
 
@@ -25,7 +25,7 @@ static NSString *_server = @"kldl.es";
 @interface KAuth ()
 
 - (void)saveCredentials;
-- (void)setKey:(NSString *)key forAccountId:(NSString *)accountId;
+- (void)setToken:(NSString *)token forAccountId:(NSString *)accountId;
 
 @end
 
@@ -57,9 +57,9 @@ static NSString *_server = @"kldl.es";
     return self;
 }
 
-- (void)setKey:(NSString *)key forAccountId:(NSString *)accountId
+- (void)setToken:(NSString *)token forAccountId:(NSString *)accountId
 {
-    [_keysStore setObject:key forKey:accountId];
+    [_keysStore setObject:token forKey:accountId];
     [self saveCredentials];
 }
 
@@ -77,7 +77,7 @@ static NSString *_server = @"kldl.es";
     [self saveCredentials];
 }
 
-- (NSString *)keyForAccountId:(NSString *)accountId {
+- (NSString *)tokenForAccountId:(NSString *)accountId {
     if (!accountId) {
         return nil;
     }
@@ -193,8 +193,9 @@ static NSString *_server = @"kldl.es";
     NSString *appId = _appId;
     // initializing authURL
     if (!authUrl || [authUrl isEqualToString:@""]) {
-        authUrl = [NSString stringWithFormat:@"%@://%@/v%@/services/?app_id=%@&referrer=mobile&retrieve_account_key=true",
-           kProtocolHTTPS, kAPIVersion, kAPIHost, appId];
+        NSString *state = [[NSProcessInfo processInfo] globallyUniqueString];
+        authUrl = [NSString stringWithFormat:@"%@://%@/v%@/oauth/?client_id=%@&response_type=token&redirect_uri=urn:ietf:wg:oauth:2.0:oob&state=%@",
+           kProtocolHTTPS, kAPIHost, kAPIVersion, appId, state];
     }
 
     // adding query params

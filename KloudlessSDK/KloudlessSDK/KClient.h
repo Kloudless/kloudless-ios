@@ -27,6 +27,7 @@
 }
 
 - (id)initWithId:(NSString *)accountId andToken:(NSString *)token;
+- (NSString*)verifyToken:(NSString *)token;
 
 // Account Methods
 - (void)listAccounts:(NSDictionary *)queryParams;
