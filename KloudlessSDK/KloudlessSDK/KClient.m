@@ -33,21 +33,21 @@
 @implementation KClient
 
 /**
- Initializes the Kloudless Client with Account Id and Account Key.  A developer can also trivially keep track clients based
- on the Kloudless Auth object that stores different account ids and keys.
+ Initializes the Kloudless Client with Account Id and Bearer Token.  A developer can also trivially keep track clients based
+ on the Kloudless Auth object that stores different account ids and tokens.
  @param NSString Account Id
- @param NSString Account Key
+ @param NSString Bearer Token
  @returns Kloudless Client
  @exception
  */
-- (id)initWithId:(NSString *)accountId andKey:(NSString *)accountKey
+- (id)initWithId:(NSString *)accountId andToken:(NSString *)token
 {
-    if (!accountKey || !accountId) {
+    if (!token || !accountId) {
         return nil;
     }
     
     if ((self = [super init])) {
-        _accountKey = accountKey;
+        _token = token;
         _accountId = accountId;
         _requests = [[NSMutableSet alloc] init];
         _opQueue = [NSOperationQueue new];
@@ -56,6 +56,25 @@
     }
     return self;
 }
+
+- (NSString*)verifyToken:(NSString *) token
+{
+    _token = token;
+    NSURLRequest* urlRequest =
+    [self requestWithHost:kAPIHost path:@"oauth/token" bodyParameters:nil method:@"GET" queryParameters:nil];
+
+    NSURLResponse* response = nil;
+    NSError* error = nil;
+    NSError* e = nil;
+    NSData* data = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&response error:&error];
+    
+    NSJSONSerialization *serialJSON = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&e];
+    
+    NSDictionary *tokenData = (NSDictionary *) serialJSON;
+    NSString *accountId = [NSString stringWithFormat:@"%@", [tokenData objectForKey:@"account_id"]];
+    return accountId;
+}
+
 
 #pragma mark Kloudless API Methods /accounts
 /**
@@ -240,7 +259,7 @@
     [newQueryParams setObject:query forKey:@"query"];
     [newQueryParams addEntriesFromDictionary:queryParams];
 
-    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/search", _accountId];
+    NSString *urlPath = [NSString stringWithFormat:@"accounts/storage/%@/search", _accountId];
     NSURLRequest* urlRequest =
         [self requestWithHost:kAPIHost path:urlPath bodyParameters:nil method:@"GET" queryParameters:queryParams];
     
@@ -287,7 +306,7 @@
  */
 - (void)getFile:(NSString *)fileId
 {
-    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/files/%@", _accountId, fileId];
+    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/storage/files/%@", _accountId, fileId];
     NSURLRequest* urlRequest =
     [self requestWithHost:kAPIHost path:urlPath bodyParameters:nil];
     
@@ -326,7 +345,7 @@
  */
 - (void)updateFile:(NSString *)fileId bodyParameters:(NSDictionary *)bodyParams
 {
-    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/files/%@", _accountId, fileId];
+    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/storage/files/%@", _accountId, fileId];
     NSURLRequest* urlRequest =
     [self requestWithHost:kAPIHost path:urlPath bodyParameters:bodyParams method:@"PATCH"];
     
@@ -367,7 +386,7 @@
  */
 - (void)uploadFileData:(NSString *)fileInfo andData:(NSData *)data queryParameters:(NSDictionary *)queryParams
 {
-    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/files", _accountId];
+    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/storage/files", _accountId];
    
     NSError *error;
     NSDictionary *fileParams = [NSJSONSerialization JSONObjectWithData:[fileInfo dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:&error];
@@ -411,7 +430,7 @@
  */
 - (void)updateFileData:(NSString *)fileId andData:(NSData *)data
 {
-    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/files/%@", _accountId, fileId];
+    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/storage/files/%@", _accountId, fileId];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc]
                                    initWithObjectsAndKeys:data, @"file", nil];
@@ -450,7 +469,7 @@
  */
 - (void)downloadFile:(NSString *)fileId
 {
-    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/files/%@/contents", _accountId, fileId];
+    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/storage/files/%@/contents", _accountId, fileId];
     NSURLRequest* urlRequest =
     [self requestWithHost:kAPIHost path:urlPath bodyParameters:nil];
     
@@ -463,7 +482,7 @@
 
 - (KDownloadOperation *)downloadFileOperation:(NSString *)fileId
 {
-    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/files/%@/contents", _accountId, fileId];
+    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/storage/files/%@/contents", _accountId, fileId];
     NSURLRequest* urlRequest =
     [self requestWithHost:kAPIHost path:urlPath bodyParameters:nil];
     
@@ -504,7 +523,7 @@
  */
 - (void)deleteFile:(NSString *)fileId
 {
-    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/files/%@", _accountId, fileId];
+    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/storage/files/%@", _accountId, fileId];
     NSURLRequest* urlRequest =
     [self requestWithHost:kAPIHost path:urlPath bodyParameters:nil method:@"DELETE"];
     
@@ -543,7 +562,7 @@
  */
 - (void)getRecentFiles:(NSDictionary *)queryParams
 {
-    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/recent", _accountId];
+    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/storage/recent", _accountId];
     NSURLRequest* urlRequest =
     [self requestWithHost:kAPIHost path:urlPath bodyParameters:nil method:@"GET" queryParameters:queryParams];
     
@@ -592,7 +611,7 @@
  */
 - (void)getFolder:(NSString *)folderId
 {
-    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/folders/%@", _accountId, folderId];
+    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/storage/folders/%@", _accountId, folderId];
     NSURLRequest* urlRequest =
     [self requestWithHost:kAPIHost path:urlPath bodyParameters:nil];
     
@@ -630,7 +649,7 @@
  */
 - (void)updateFolder:(NSString *)folderId bodyParameters:(NSDictionary *)bodyParams
 {
-    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/folders/%@", _accountId, folderId];
+    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/storage/folders/%@", _accountId, folderId];
     NSURLRequest* urlRequest =
     [self requestWithHost:kAPIHost path:urlPath bodyParameters:bodyParams method:@"PATCH"];
     
@@ -675,7 +694,7 @@
  */
 - (void)createFolder:(NSDictionary *)bodyParams queryParameters:(NSDictionary *)queryParams
 {
-    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/folders", _accountId];
+    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/storage/folders", _accountId];
     
     NSURLRequest* urlRequest =
     [self requestWithHost:kAPIHost path:urlPath bodyParameters:bodyParams method:@"POST" queryParameters:queryParams];
@@ -719,7 +738,7 @@
  */
 - (void)getFolderContents:(NSString *)folderId queryParameters:(NSDictionary *)queryParams
 {
-    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/folders/%@/contents", _accountId, folderId];
+    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/storage/folders/%@/contents", _accountId, folderId];
     NSURLRequest* urlRequest =
     [self requestWithHost:kAPIHost path:urlPath bodyParameters:nil method:@"GET" queryParameters:queryParams];
     
@@ -759,7 +778,7 @@
  */
 - (void)deleteFolder:(NSString *)folderId
 {
-    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/folders/%@", _accountId, folderId];
+    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/storage/folders/%@", _accountId, folderId];
     NSURLRequest* urlRequest =
     [self requestWithHost:kAPIHost path:urlPath bodyParameters:nil method:@"DELETE"];
     
@@ -804,7 +823,7 @@
  */
 - (void)listLinks:(NSDictionary *)queryParams
 {
-    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/links", _accountId];
+    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/storage/links", _accountId];
     NSURLRequest* urlRequest =
     [self requestWithHost:kAPIHost path:urlPath bodyParameters:nil method:@"GET" queryParameters:queryParams];
     
@@ -841,7 +860,7 @@
  */
 - (void)getLink:(NSString *)linkId queryParameters:(NSDictionary *)queryParams;
 {
-    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/links/%@", _accountId, linkId];
+    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/storage/links/%@", _accountId, linkId];
     NSURLRequest* urlRequest =
     [self requestWithHost:kAPIHost path:urlPath bodyParameters:nil method:@"GET" queryParameters:queryParams];
     
@@ -881,7 +900,7 @@
  */
 - (void)updateLink:(NSString *)linkId bodyParameters:(NSDictionary *)bodyParams;
 {
-    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/links/%@", _accountId, linkId];
+    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/storage/links/%@", _accountId, linkId];
     NSURLRequest* urlRequest =
     [self requestWithHost:kAPIHost path:urlPath bodyParameters:bodyParams method:@"PATCH"];
     
@@ -921,7 +940,7 @@
  */
 - (void)createLink:(NSDictionary *)bodyParams
 {
-    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/links", _accountId];
+    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/storage/links", _accountId];
     
     NSURLRequest* urlRequest =
     [self requestWithHost:kAPIHost path:urlPath bodyParameters:bodyParams method:@"POST"];
@@ -958,7 +977,7 @@
  */
 - (void)deleteLink:(NSString *)linkId
 {
-    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/links/%@", _accountId, linkId];
+    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/storage/links/%@", _accountId, linkId];
     NSURLRequest* urlRequest =
     [self requestWithHost:kAPIHost path:urlPath bodyParameters:nil method:@"DELETE"];
     
@@ -992,7 +1011,7 @@
  @param NSString query the query string
  */
 - (void)search:(NSString *)query {
-    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/search/", _accountId];
+    NSString *urlPath = [NSString stringWithFormat:@"accounts/%@/storage/search/", _accountId];
     NSDictionary *queryParams = @{@"q": query};
     NSURLRequest* urlRequest =
     [self requestWithHost:kAPIHost path:urlPath bodyParameters:nil method:@"GET" queryParameters:queryParams];
@@ -1076,7 +1095,7 @@
     NSLog(@"urlString: %@", urlString);
 
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
-    NSString *authorization = [NSString stringWithFormat:@"AccountKey %@", _accountKey];
+    NSString *authorization = [NSString stringWithFormat:@"Bearer %@", _token];
     
     if (method) {
         [urlRequest setHTTPMethod:method];

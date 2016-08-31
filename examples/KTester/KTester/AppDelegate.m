@@ -19,7 +19,7 @@
      *  and set the authentication store.  The KAuth object stores all of the keys in the _keyStore.  However
      *  you will have to set the current Account Key as you switch different accounts.
      */
-    NSString *appId = @"YOUR APP ID HERE";
+    NSString *appId = @"Am3oC0zHwvFc5zPNZk7lku98jGlhRWbjSiAnsc7pUYApaaU3";
     KAuth* auth = [[KAuth alloc] initWithAppId:appId];
 	[KAuth setSharedAuth:auth];
 	[KRequest setNetworkRequestDelegate:self];

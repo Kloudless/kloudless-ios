@@ -127,14 +127,20 @@ extern id<KNetworkRequestDelegate> kNetworkRequestDelegate;
     hasLoaded = YES;
     [kNetworkRequestDelegate networkRequestStopped];
 
-    NSString *accountId = [aWebView stringByEvaluatingJavaScriptFromString:@"document.getElementById('account').title"];
-    NSString *accountKey = [aWebView stringByEvaluatingJavaScriptFromString:@"document.getElementById('account_key').title"];
-    NSMutableDictionary *accountData = [[NSMutableDictionary alloc] init];
-    [accountData setObject:accountId forKey:@"accountId"];
-    [accountData setObject:accountKey forKey:@"accountKey"];
+    NSString *token = [aWebView stringByEvaluatingJavaScriptFromString:@"document.getElementById('access_token').getAttribute('data-value')"];
+    
+    NSString *accountId;
+    if (![token isEqualToString:@""]) {
+        KClient *client = [[KClient alloc] initWithId:@"" andToken:token];
+        accountId = [client verifyToken:token];
+    }
+    
+    if (![accountId isEqualToString:@""] && ![token isEqualToString:@""]) {
+        NSMutableDictionary *accountData = [[NSMutableDictionary alloc] init];
+        [accountData setObject:accountId forKey:@"accountId"];
+        [accountData setObject:token forKey:@"token"];
 
-    if (![accountId isEqualToString:@""] && ![accountKey isEqualToString:@""]) {
-        [[KAuth sharedAuth] setKey:accountKey forAccountId:accountId];
+        [[KAuth sharedAuth] setToken:token forAccountId:accountId];
         [self.navigationController dismissViewControllerAnimated:YES completion:nil];
         [delegate authenticationSucceeded:accountData];
     }
