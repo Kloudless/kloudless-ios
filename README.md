@@ -12,7 +12,7 @@ Requirements:
 2. You need to have registered as a Kloudless app at
    https://developers.kloudless.com. You should have an App key and API Key.
 
-Note: The SDK is designed to work with iOS versions 4.0 and above.
+Note: The SDK is designed to work with iOS versions 9.0 and above.
 
 
 ## Building and using the example app:
@@ -26,6 +26,19 @@ Note: The SDK is designed to work with iOS versions 4.0 and above.
 
 If you cannot run the app without getting errors, please contact us at
 support@kloudless.com.
+
+
+## Authorizing Users without the SDK.
+1. The Kloudless SDK will use the SFSafariViewController to handle 
+   authentication and store the values within the KAuth object.
+2. However, if you want to handle authentication on your own please follow
+   the following steps.
+3. Follow the steps for implicit OAuth flow: https://developers.kloudless.com/docs/v1/authentication#header-implicit-grant-flow
+4. Register a custom URL scheme in the Kloudless developer portal.
+5. Add this custom URL scheme to your CFBundle type in your Info.plist.
+6. Initialize an SFSafariViewController with the implicit oauth url.
+7. The access token will be returned in the url fragment. KTester includes an
+   example code snippet to parse the access token.
 
 
 ## Adding the KloudlessSDK.Framework to a Third-Party Application
@@ -117,6 +130,8 @@ NSString *folderId = @"root";
 ```
 
 ## UPDATES
+* 2017/04 - updated SDK to use SFSafariViewController and implicit auth
+* 2016/08 - updated SDK to Kloudless v1
 * 2014/09 - updated SDK with new methods, modified auth controller
 * 2014/04 - added initial Example project
 

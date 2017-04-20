@@ -87,9 +87,15 @@ static NSString *_server = @"kldl.es";
     return [_keysStore allKeys];
 }
 
-- (BOOL) handleOpenURL:(NSURL *)url
+- (BOOL) handleOpenURL:(NSURL *)url withPrefix:(NSString *)prefix
 {
-    if ([[url absoluteString] hasPrefix:[[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"] lowercaseString]]) {
+    NSString *defaultPrefix = [NSString stringWithFormat:@"%@://kloudless/callback", [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"] lowercaseString]];
+    
+    if (prefix == nil) {
+        prefix = defaultPrefix;
+    }
+    
+    if ([[url absoluteString] hasPrefix:prefix]) {
         NSString *fragment = [url fragment];
         
         NSArray *implicitParameters = [fragment componentsSeparatedByString:@"&"];
@@ -113,7 +119,7 @@ static NSString *_server = @"kldl.es";
         
         NSLog(@"Could not find access token: %@", [url absoluteString]);
     }
-    return YES;
+    return NO;
 }
 
 #pragma mark private methods

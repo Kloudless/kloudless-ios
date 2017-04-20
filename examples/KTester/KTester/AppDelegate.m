@@ -12,9 +12,15 @@
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options
 {
-    if ([[KAuth sharedAuth] handleOpenURL:url]) {
+    // If the access token was retrieved from the URL, go ahead and close/dismiss the view controller.
+    if ([[KAuth sharedAuth] handleOpenURL:url withPrefix:nil]) {
+        [[[[UIApplication sharedApplication] keyWindow] rootViewController] dismissViewControllerAnimated:YES completion:nil];
+    } else {
+ 
+        // Should relaunch the Auth, but for now just dismiss the window.
         [[[[UIApplication sharedApplication] keyWindow] rootViewController] dismissViewControllerAnimated:YES completion:nil];
     }
+    
     return YES;
 }
 
