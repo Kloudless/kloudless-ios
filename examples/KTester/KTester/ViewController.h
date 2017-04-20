@@ -9,7 +9,7 @@
 #import <KloudlessSDK/KloudlessSDK.h>
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController <UIWebViewDelegate, KClientDelegate> {
+@interface ViewController : UIViewController <SFSafariViewControllerDelegate, KClientDelegate> {
     NSString *accountId;
     NSString *token;
     

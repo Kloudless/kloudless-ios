@@ -16,7 +16,7 @@
     id<KAuthDelegate> delegate;
 }
 
-- (id)initWithUrl:(NSURL *)connectUrl fromController:(UIViewController *)rootController auth:(KAuth *)auth;
+- (id)initWithUrl:(NSURL *)connectUrl fromController:(SFSafariViewController *)rootController auth:(KAuth *)auth;
 
 @property (nonatomic, retain) id<KAuthDelegate> delegate;
 

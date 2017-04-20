@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <SafariServices/SafariServices.h>
+#import "KClient.h"
 
 extern NSString *kSDKVersion;
 
@@ -17,17 +19,15 @@ extern NSString *kAPIVersion;
 
 extern NSString *kProtocolHTTPS;
 
-@class KAuthController;
-
 @interface KAuth : NSObject {
     NSString *_appId;
     NSMutableDictionary *_keysStore;
     NSMutableDictionary *_keychainItem;
 }
 
-- (KAuthController *)authFromController:(UIViewController *)rootController;
-- (KAuthController *)authFromController:(UIViewController *)rootController andAuthUrl:(NSString *)authUrl;
-- (KAuthController *)authFromController:(UIViewController *)rootController andAuthUrl:(NSString *)authUrl andAuthParams:(NSDictionary *)params;
+- (SFSafariViewController *)authFromController:(UIViewController *)rootController;
+- (SFSafariViewController *)authFromController:(UIViewController *)rootController andAuthUrl:(NSString *)authUrl;
+- (SFSafariViewController *)authFromController:(UIViewController *)rootController andAuthUrl:(NSString *)authUrl andAuthParams:(NSDictionary *)params;
 
 + (KAuth *)sharedAuth;
 + (void)setSharedAuth:(KAuth *)auth;
@@ -35,6 +35,7 @@ extern NSString *kProtocolHTTPS;
 - (id)initWithAppId:(NSString *)appId;
 - (BOOL)isLinked; // Auth must be linked before creating any KClient objects
 - (void)setToken:(NSString *)token forAccountId:(NSString *)accountId;
+- (BOOL) handleOpenURL:(NSURL *)url;
 - (NSString *)tokenForAccountId:(NSString *)accountId;
 
 - (void)unlinkAll;

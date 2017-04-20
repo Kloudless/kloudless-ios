@@ -101,7 +101,15 @@
         [storage deleteCookie:cookie];
     }
     [[NSUserDefaults standardUserDefaults] synchronize];
-    [[KAuth sharedAuth] authFromController:self andAuthUrl:nil];
+//    [[KAuth sharedAuth] authFromController:self andAuthUrl:nil];
+
+//    NSString *authString = @"https://api.kloudless.com/v1/oauth/?client_id=Am3oC0zHwvFc5zPNZk7lku98jGlhRWbjSiAnsc7pUYApaaU3&response_type=token&redirect_uri=KTester://kloudless.com/callback&state=93E243B7-983E-49FF-934F-BA1AA229C4BD-59027-0008D902C65EDCD6";
+//    
+//    NSURL *url = [[NSURL alloc] initWithString:authString];
+    
+    SFSafariViewController *authController = [[KAuth sharedAuth] authFromController:self andAuthUrl:nil];
+    authController.delegate = self;
+    [self presentViewController:authController animated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning

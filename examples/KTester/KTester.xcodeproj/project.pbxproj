@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C495AA71EA7F1DB00039ED6 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C495AA61EA7F1DB00039ED6 /* SafariServices.framework */; };
+		1C495AB31EA83D2700039ED6 /* KloudlessSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C495AB21EA83D2700039ED6 /* KloudlessSDK.framework */; };
 		DE54657918EFF36800069BC4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE54657818EFF36800069BC4 /* Foundation.framework */; };
 		DE54657B18EFF36800069BC4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE54657A18EFF36800069BC4 /* CoreGraphics.framework */; };
 		DE54657D18EFF36800069BC4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE54657C18EFF36800069BC4 /* UIKit.framework */; };
@@ -22,7 +24,6 @@
 		DE54659D18EFF36800069BC4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE54657C18EFF36800069BC4 /* UIKit.framework */; };
 		DE5465A518EFF36800069BC4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DE5465A318EFF36800069BC4 /* InfoPlist.strings */; };
 		DE5465A718EFF36800069BC4 /* KTesterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DE5465A618EFF36800069BC4 /* KTesterTests.m */; };
-		DE972C8E1A60C6560021A372 /* KloudlessSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE972C8D1A60C6560021A372 /* KloudlessSDK.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +37,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1C495AA61EA7F1DB00039ED6 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
+		1C495AB21EA83D2700039ED6 /* KloudlessSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KloudlessSDK.framework; sourceTree = "<group>"; };
 		DE54657518EFF36700069BC4 /* KTester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KTester.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE54657818EFF36800069BC4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DE54657A18EFF36800069BC4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -56,7 +59,6 @@
 		DE5465A218EFF36800069BC4 /* KTesterTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KTesterTests-Info.plist"; sourceTree = "<group>"; };
 		DE5465A418EFF36800069BC4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DE5465A618EFF36800069BC4 /* KTesterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KTesterTests.m; sourceTree = "<group>"; };
-		DE972C8D1A60C6560021A372 /* KloudlessSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KloudlessSDK.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,9 +66,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C495AA71EA7F1DB00039ED6 /* SafariServices.framework in Frameworks */,
 				DE54657B18EFF36800069BC4 /* CoreGraphics.framework in Frameworks */,
+				1C495AB31EA83D2700039ED6 /* KloudlessSDK.framework in Frameworks */,
 				DE54657D18EFF36800069BC4 /* UIKit.framework in Frameworks */,
-				DE972C8E1A60C6560021A372 /* KloudlessSDK.framework in Frameworks */,
 				DE54657918EFF36800069BC4 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -106,7 +109,8 @@
 		DE54657718EFF36800069BC4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DE972C8D1A60C6560021A372 /* KloudlessSDK.framework */,
+				1C495AB21EA83D2700039ED6 /* KloudlessSDK.framework */,
+				1C495AA61EA7F1DB00039ED6 /* SafariServices.framework */,
 				DE54657818EFF36800069BC4 /* Foundation.framework */,
 				DE54657A18EFF36800069BC4 /* CoreGraphics.framework */,
 				DE54657C18EFF36800069BC4 /* UIKit.framework */,

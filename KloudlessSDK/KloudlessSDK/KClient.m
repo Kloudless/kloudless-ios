@@ -7,7 +7,6 @@
 //
 
 #import "KAuth.h"
-#import "KAuthController.h"
 #import "KClient.h"
 
 @interface KClient ()
@@ -1148,14 +1147,6 @@
     [urlRequest setValue:authorization forHTTPHeaderField:@"Authorization"];
     
     return urlRequest;
-}
-
-- (void)checkForAuthenticationFailure:(KRequest *)request {
-    if (request.statusCode >= 400 || request.statusCode < 500) {
-        if ([delegate respondsToSelector:@selector(authDidReceiveAuthorizationFailure:accountId:)]) {
-            [delegate authDidReceiveAuthorizationFailure:[KAuth sharedAuth] accountId:_accountId];
-        }
-    }
 }
 
 #pragma mark -

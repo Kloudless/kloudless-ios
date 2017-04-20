@@ -7,7 +7,6 @@
 //
 
 #import "KAuth.h"
-#import "KAuthController.h"
 #import <Security/Security.h>
 
 NSString *kSDKVersion = @"1.0.0"; // TODO: parameterize from build system
@@ -86,6 +85,35 @@ static NSString *_server = @"kldl.es";
 
 - (NSArray *)accountIds {
     return [_keysStore allKeys];
+}
+
+- (BOOL) handleOpenURL:(NSURL *)url
+{
+    if ([[url absoluteString] hasPrefix:[[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"] lowercaseString]]) {
+        NSString *fragment = [url fragment];
+        
+        NSArray *implicitParameters = [fragment componentsSeparatedByString:@"&"];
+        for (NSString *param in implicitParameters) {
+            NSArray *items = [param componentsSeparatedByString:@"="];
+            if ([items count] < 2) {
+                continue;
+                
+            }
+            if ([[items objectAtIndex:0] isEqualToString:@"access_token"]) {
+                NSString *token = [items objectAtIndex:1];
+                
+                KClient *client = [[KClient alloc] initWithId:@"" andToken:token];
+                NSString *accountId = [client verifyToken:token];
+                
+                [self setToken:token forAccountId:accountId];
+                
+                return YES;
+            }
+        }
+        
+        NSLog(@"Could not find access token: %@", [url absoluteString]);
+    }
+    return YES;
 }
 
 #pragma mark private methods
@@ -178,24 +206,26 @@ static NSString *_server = @"kldl.es";
  @returns
  @exception <#throws#>
  */
-- (KAuthController *)authFromController:(UIViewController *)rootController
+- (SFSafariViewController *)authFromController:(UIViewController *)rootController
 {
     return [self authFromController:rootController andAuthUrl:nil];
 }
 
-- (KAuthController *)authFromController:(UIViewController *)rootController andAuthUrl:(NSString *)authUrl
+- (SFSafariViewController *)authFromController:(UIViewController *)rootController andAuthUrl:(NSString *)authUrl
 {
     return [self authFromController:rootController andAuthUrl:authUrl andAuthParams:nil];
 }
 
-- (KAuthController *)authFromController:(UIViewController *)rootController andAuthUrl:(NSString *)authUrl andAuthParams:(NSDictionary *)params
+- (SFSafariViewController *)authFromController:(UIViewController *)rootController andAuthUrl:(NSString *)authUrl andAuthParams:(NSDictionary *)params
 {
     NSString *appId = _appId;
     // initializing authURL
     if (!authUrl || [authUrl isEqualToString:@""]) {
         NSString *state = [[NSProcessInfo processInfo] globallyUniqueString];
-        authUrl = [NSString stringWithFormat:@"%@://%@/v%@/oauth/?client_id=%@&response_type=token&redirect_uri=urn:ietf:wg:oauth:2.0:oob&state=%@",
-           kProtocolHTTPS, kAPIHost, kAPIVersion, appId, state];
+        NSString *appName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
+
+        authUrl = [NSString stringWithFormat:@"%@://%@/v%@/oauth/?client_id=%@&response_type=token&redirect_uri=%@://kloudless/callback&state=%@",
+           kProtocolHTTPS, kAPIHost, kAPIVersion, appId, appName, state];
     }
 
     // adding query params
@@ -216,15 +246,11 @@ static NSString *_server = @"kldl.es";
     }
 
     NSLog(@"Auth URL: %@", authUrl);
-    KAuthController *connectController = [[KAuthController alloc] initWithUrl:[NSURL URLWithString:authUrl] fromController:rootController auth:self];
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:connectController];
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        connectController.modalPresentationStyle = UIModalPresentationFormSheet;
-        navController.modalPresentationStyle = UIModalPresentationFormSheet;
-    }
-
-    [rootController presentViewController:navController animated:YES completion:nil];
-    return connectController;
+    
+    SFSafariViewController *authController = (SFSafariViewController *)[[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:authUrl]];
+    
+    return authController;
+    
 }
 
 @end

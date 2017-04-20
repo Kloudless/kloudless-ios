@@ -157,7 +157,4 @@
 - (void)restClient:(KClient*)client searchFailedWithError:(NSError*)error;
 - (void)restClient:(KClient*)client searchLoaded:(NSDictionary *)response;
 
-// Authorization Failure
-- (void)authDidReceiveAuthorizationFailure:(KAuth *)auth accountId:(NSString *)accountId;
-
 @end

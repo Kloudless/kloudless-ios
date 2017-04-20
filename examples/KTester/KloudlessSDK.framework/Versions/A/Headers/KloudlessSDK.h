@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <SafariServices/SafariServices.h>
 
 #import <KloudlessSDK/KAuth.h>
-#import <KloudlessSDK/KAuthController.h>
 #import <KloudlessSDK/KClient.h>
 #import <KloudlessSDK/KRequest.h>
 #import <KloudlessSDK/KDownloadOperation.h>

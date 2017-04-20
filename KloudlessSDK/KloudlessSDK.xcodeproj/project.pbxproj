@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 47;
 	objects = {
 
 /* Begin PBXAggregateTarget section */
@@ -23,6 +23,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		1C495A9B1EA7E3BF00039ED6 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C495A9A1EA7E3BF00039ED6 /* SafariServices.framework */; };
 		DE2D1E171A606F7B006487A2 /* KDownloadOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = DE2D1E151A606F7B006487A2 /* KDownloadOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DE2D1E181A606F7B006487A2 /* KDownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = DE2D1E161A606F7B006487A2 /* KDownloadOperation.m */; };
 		DE54650618EF33BB00069BC4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE54650518EF33BB00069BC4 /* Foundation.framework */; };
@@ -38,8 +39,6 @@
 		DE54654918EF39BD00069BC4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DE54654718EF39BD00069BC4 /* InfoPlist.strings */; };
 		DE86B11518F0014F009E5466 /* KAuth.h in Headers */ = {isa = PBXBuildFile; fileRef = DE86B10D18F0014F009E5466 /* KAuth.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DE86B11618F0014F009E5466 /* KAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = DE86B10E18F0014F009E5466 /* KAuth.m */; };
-		DE86B11718F0014F009E5466 /* KAuthController.h in Headers */ = {isa = PBXBuildFile; fileRef = DE86B10F18F0014F009E5466 /* KAuthController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DE86B11818F0014F009E5466 /* KAuthController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE86B11018F0014F009E5466 /* KAuthController.m */; };
 		DE86B11918F0014F009E5466 /* KClient.h in Headers */ = {isa = PBXBuildFile; fileRef = DE86B11118F0014F009E5466 /* KClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DE86B11A18F0014F009E5466 /* KClient.m in Sources */ = {isa = PBXBuildFile; fileRef = DE86B11218F0014F009E5466 /* KClient.m */; };
 		DE86B11B18F0014F009E5466 /* KRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = DE86B11318F0014F009E5466 /* KRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -84,6 +83,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1C495A9A1EA7E3BF00039ED6 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		DE2D1E151A606F7B006487A2 /* KDownloadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KDownloadOperation.h; sourceTree = "<group>"; };
 		DE2D1E161A606F7B006487A2 /* KDownloadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KDownloadOperation.m; sourceTree = "<group>"; };
 		DE54650218EF33BB00069BC4 /* libKloudlessSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libKloudlessSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -102,8 +102,6 @@
 		DE54654818EF39BD00069BC4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DE86B10D18F0014F009E5466 /* KAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KAuth.h; sourceTree = "<group>"; };
 		DE86B10E18F0014F009E5466 /* KAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KAuth.m; sourceTree = "<group>"; };
-		DE86B10F18F0014F009E5466 /* KAuthController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KAuthController.h; sourceTree = "<group>"; };
-		DE86B11018F0014F009E5466 /* KAuthController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KAuthController.m; sourceTree = "<group>"; };
 		DE86B11118F0014F009E5466 /* KClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KClient.h; sourceTree = "<group>"; };
 		DE86B11218F0014F009E5466 /* KClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KClient.m; sourceTree = "<group>"; };
 		DE86B11318F0014F009E5466 /* KRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KRequest.h; sourceTree = "<group>"; };
@@ -115,6 +113,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C495A9B1EA7E3BF00039ED6 /* SafariServices.framework in Frameworks */,
 				DE54650618EF33BB00069BC4 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -165,6 +164,7 @@
 		DE54650418EF33BB00069BC4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1C495A9A1EA7E3BF00039ED6 /* SafariServices.framework */,
 				DE54650518EF33BB00069BC4 /* Foundation.framework */,
 				DE54651318EF33BC00069BC4 /* XCTest.framework */,
 				DE54651618EF33BC00069BC4 /* UIKit.framework */,
@@ -179,8 +179,6 @@
 				DE54650A18EF33BC00069BC4 /* KloudlessSDK.h */,
 				DE86B10D18F0014F009E5466 /* KAuth.h */,
 				DE86B10E18F0014F009E5466 /* KAuth.m */,
-				DE86B10F18F0014F009E5466 /* KAuthController.h */,
-				DE86B11018F0014F009E5466 /* KAuthController.m */,
 				DE86B11118F0014F009E5466 /* KClient.h */,
 				DE86B11218F0014F009E5466 /* KClient.m */,
 				DE86B11318F0014F009E5466 /* KRequest.h */,
@@ -243,7 +241,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE86B11518F0014F009E5466 /* KAuth.h in Headers */,
-				DE86B11718F0014F009E5466 /* KAuthController.h in Headers */,
 				DE86B11918F0014F009E5466 /* KClient.h in Headers */,
 				DE86B11B18F0014F009E5466 /* KRequest.h in Headers */,
 				DE2D1E171A606F7B006487A2 /* KDownloadOperation.h in Headers */,
@@ -318,7 +315,7 @@
 				ORGANIZATIONNAME = "___FULLUSERNAME___";
 			};
 			buildConfigurationList = DE5464FD18EF33BB00069BC4 /* Build configuration list for PBXProject "KloudlessSDK" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 6.3";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -394,7 +391,6 @@
 				DE2D1E181A606F7B006487A2 /* KDownloadOperation.m in Sources */,
 				DE86B11C18F0014F009E5466 /* KRequest.m in Sources */,
 				DE86B11618F0014F009E5466 /* KAuth.m in Sources */,
-				DE86B11818F0014F009E5466 /* KAuthController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -485,8 +481,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -517,7 +512,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
