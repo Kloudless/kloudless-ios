@@ -39,6 +39,7 @@ extern NSString *kProtocolHTTPS;
 - (NSString *)tokenForAccountId:(NSString *)accountId;
 
 - (void)unlinkAll;
+- (void)unlinkAccountId:(NSString *)accountId;
 
 @property (strong, nonatomic) NSMutableDictionary * keychainItem;
 @property (nonatomic, readonly) NSArray *accountIds;
