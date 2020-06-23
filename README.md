@@ -19,10 +19,13 @@ Note: The SDK is designed to work with iOS versions 9.0 and above.
 1. Open the project file in examples/KTester/KTester.xcodeproj
 2. Fill in the values for appId in
    KTesterAppDelegate.m application:didFinishLaunchingWithOptions:
-3. Make sure the build is set to Simulator. This setting should be near
+3. Configure a Redirect URI (KTester://kloudless.com/callback
+) in your Application Details (https://developers.kloudless.com/applications/*/details) 
+page of the Developer portal.
+4. Make sure the build is set to Simulator. This setting should be near
    the top-left corner of Xcode.
-4. Build and Run app
-5. Once running, you can test functionalities of the API without getting errors.
+5. Build and Run app
+6. Once running, you can test functionalities of the API without getting errors.
 
 If you cannot run the app without getting errors, please contact us at
 support@kloudless.com.
